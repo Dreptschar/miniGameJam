@@ -1,11 +1,6 @@
 extends Node
 
+signal freeze_color_requested(color: NoteColor, duration: float)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func request_freeze_color(color: NoteColor, duration: float) -> void:
+	emit_signal("freeze_color_requested", color, duration)

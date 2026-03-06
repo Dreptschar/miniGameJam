@@ -14,6 +14,10 @@ config/name="game-jam"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+FreezeManager="*uid://b3jfl5atn7eqg"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=2

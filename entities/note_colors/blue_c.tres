@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="NoteColor" format=3 uid="uid://cnpaa2uqir1ha"]
+
+[ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="1_osto2"]
+
+[resource]
+script = ExtResource("1_osto2")
+name = "Blue"
+color = Color(0, 0, 1, 1)
+note_name = "C"
+metadata/_custom_type_script = "uid://x10yqnunykx3"
