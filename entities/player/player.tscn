@@ -174,7 +174,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_qiwj3"]
 radius = 5.0990195
 
-[node name="Player" type="CharacterBody2D" unique_id=1552096183]
+[node name="Player" type="CharacterBody2D" unique_id=1552096183 groups=["player"]]
 script = ExtResource("1_bls4j")
 note_1_color = ExtResource("2_fkugw")
 note_2_color = ExtResource("3_8fjmc")

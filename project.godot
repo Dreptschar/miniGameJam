@@ -34,6 +34,10 @@ window/size/viewport_height=360
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[global_group]
+
+player=""
+
 [input]
 
 play_note_1={
