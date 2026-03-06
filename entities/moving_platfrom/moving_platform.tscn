@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://d57k54qjs1u7"]
 
 [ext_resource type="Script" uid="uid://chsmma33txbmo" path="res://entities/moving_platfrom/moving_platform.gd" id="1_oi4e2"]
-[ext_resource type="Texture2D" uid="uid://ckohmtchrb3qr" path="res://assets/prototype-textures/PNG/Red/texture_01.png" id="2_2onvg"]
+[ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_j2yvd"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_vk8ht"]
-[ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="4_2p4yl"]
-[ext_resource type="Resource" uid="uid://1tqo6ho5xbsa" path="res://entities/note_colors/red_d.tres" id="5_gprxy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6l7ic"]
 
@@ -13,10 +11,9 @@ script = ExtResource("1_oi4e2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=878957800]
 scale = Vector2(0.02, 0.02)
-texture = ExtResource("2_2onvg")
+texture = ExtResource("2_j2yvd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=312805948]
 shape = SubResource("RectangleShape2D_6l7ic")
 
 [node name="FreezableComponent" parent="." unique_id=105353377 instance=ExtResource("3_vk8ht")]
-freeze_colors = Array[ExtResource("4_2p4yl")]([ExtResource("5_gprxy")])

@@ -6,6 +6,7 @@ class_name MovingPlatform
 @export var freeze_colors: Array[NoteColor] = []
 
 @onready var freezeable_component: Freezable = $FreezableComponent
+@onready var sprite2d: Sprite2D = $Sprite2D
 
 var _start: Vector2
 var _target: Vector2
@@ -15,6 +16,7 @@ func _ready() -> void:
 	_start = global_position
 	_target = _start + move_offset
 	freezeable_component.set_freeze_colors(freeze_colors)
+	sprite2d.modulate = freezeable_component.get_tint()
 
 func _physics_process(delta: float) -> void:
 	if freezeable_component.are_all_colors_frozen():

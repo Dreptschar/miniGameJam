@@ -71,6 +71,18 @@ func are_all_colors_frozen() -> bool:
 			return false
 	return true
 
+func get_tint() -> Color:
+	if freeze_colors.is_empty():
+			return Color.WHITE
+
+	var sum := Color(0, 0, 0, 1)
+	for note_color in freeze_colors:
+			sum.r += note_color.color.r
+			sum.g += note_color.color.g
+			sum.b += note_color.color.b
+	var count := float(freeze_colors.size())
+	return Color(sum.r / count, sum.g / count, sum.b / count, 1.0)
+
 func _on_color_frozen(color: NoteColor) -> void:
 	pass
 
