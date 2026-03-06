@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://5wbjtabtvo3w"]
+
+[ext_resource type="Script" uid="uid://dsmnmnct1hebt" path="res://common/manager/level_manager.gd" id="1_nghu8"]
+
+[node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
+script = ExtResource("1_nghu8")
+
+[node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
