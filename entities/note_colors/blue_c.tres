@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NoteColor" format=3 uid="uid://cnpaa2uqir1ha"]
+
+[ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="1_osto2"]
+[ext_resource type="AudioStream" uid="uid://x1xxl55eexj5" path="res://assets/audio/IrishTinWhistle_C#_61_single_Loop.wav" id="2_qv4qw"]
+
+[resource]
+script = ExtResource("1_osto2")
+name = "Blue"
+color = Color(0, 0, 1, 1)
+note_name = "C"
+sound = ExtResource("2_qv4qw")
+metadata/_custom_type_script = "uid://x10yqnunykx3"
