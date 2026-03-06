@@ -1,20 +1,19 @@
 [gd_scene format=3 uid="uid://ckmq77g22g7qi"]
 
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/environment/moving_platform.tscn" id="1_a7hed"]
-[ext_resource type="Script" uid="uid://bnbqmhqolobdg" path="res://entities/player/player.gd" id="2_6l7ic"]
-[ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="2_v0v4s"]
-[ext_resource type="Resource" uid="uid://1tqo6ho5xbsa" path="res://entities/note_colors/red_d.tres" id="3_gwa0j"]
-[ext_resource type="Resource" uid="uid://kintqv715xh5" path="res://entities/note_colors/green_e.tres" id="5_gwa0j"]
-[ext_resource type="Resource" uid="uid://cnpaa2uqir1ha" path="res://entities/note_colors/blue_c.tres" id="5_qkhdr"]
+[ext_resource type="Script" uid="uid://bxiiy0l5i704x" path="res://common/components/freezable.gd" id="1_lv1eq"]
+[ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="4_lv1eq"]
+[ext_resource type="PackedScene" uid="uid://6g37psw3yrdm" path="res://entities/environment/floor.tscn" id="5_v0v4s"]
 
 [node name="jonas_test" type="Node2D" unique_id=223619765]
+script = ExtResource("1_lv1eq")
 
 [node name="MovingPlatform" parent="." unique_id=459696663 instance=ExtResource("1_a7hed")]
-position = Vector2(468, 315)
-freeze_colors = Array[ExtResource("2_v0v4s")]([ExtResource("3_gwa0j")])
+position = Vector2(479, 486)
 
-[node name="Player" type="Node2D" parent="." unique_id=1036910280]
-script = ExtResource("2_6l7ic")
-note_1_color = ExtResource("3_gwa0j")
-note_2_color = ExtResource("5_gwa0j")
-note_3_color = ExtResource("5_qkhdr")
+[node name="Player" parent="." unique_id=1188725595 instance=ExtResource("4_lv1eq")]
+position = Vector2(210, 251)
+
+[node name="Floor" parent="." unique_id=1856088161 instance=ExtResource("5_v0v4s")]
+position = Vector2(550, 596)
+scale = Vector2(12, 1)

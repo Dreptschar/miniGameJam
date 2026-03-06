@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name Freezable
 
 @export var freeze_colors: Array[NoteColor] = []
