@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://d35dr6ljrlo33"]
 
 [ext_resource type="Script" uid="uid://bjb2ldmu323cd" path="res://entities/player/vfx/floating_note.gd" id="1_feavg"]
-[ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_feavg"]
+[ext_resource type="Texture2D" uid="uid://bnlrmsjsv3hq7" path="res://assets/vfx/note1.png" id="2_u1wsu"]
+[ext_resource type="Texture2D" uid="uid://b64mtjgd8ctt" path="res://assets/vfx/note2.png" id="3_kqiyj"]
+[ext_resource type="Texture2D" uid="uid://66v303ak4n3o" path="res://assets/vfx/note3.png" id="4_mnh1l"]
 
-[node name="FloatingNote" type="Node2D" unique_id=1690920752]
+[node name="FloatingNote" type="Sprite2D" unique_id=1162214133]
 script = ExtResource("1_feavg")
 rise_distance = 80.0
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593804584]
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("2_feavg")
+notesTextures = Array[Texture2D]([ExtResource("2_u1wsu"), ExtResource("3_kqiyj"), ExtResource("4_mnh1l")])

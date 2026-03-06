@@ -179,6 +179,10 @@ script = ExtResource("1_bls4j")
 note_1_color = ExtResource("2_fkugw")
 note_2_color = ExtResource("3_8fjmc")
 note_3_color = ExtResource("4_qiwj3")
+accel_air = 800.0
+jump_velocity = -340.0
+fall_gravity_multiplier = 2.2
+jump_cut_multiplier = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=526913572]
 position = Vector2(0, -12)

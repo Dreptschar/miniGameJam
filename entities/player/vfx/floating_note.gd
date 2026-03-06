@@ -1,8 +1,12 @@
-extends Node2D
+extends Sprite2D 
 
 @export var lifetime: float = 0.8
 @export var rise_distance: float = 60.0
 @export var drift_x: float = 20.0
+@export var notesTextures: Array[Texture2D] = []
+
+func _ready() -> void:
+	self.texture = notesTextures[randi() % notesTextures.size()]
 
 func play(note_color: NoteColor) -> void:
 	modulate = note_color.color
