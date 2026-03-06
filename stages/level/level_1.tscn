@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://ofgqy8ip2hb2" path="res://assets/tilesets/foreground.tres" id="1_ixywl"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_b1j0g"]
+[ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="3_o304y"]
 
 [node name="Level1" type="Node2D" unique_id=1105359909]
 
@@ -11,3 +12,6 @@ tile_set = ExtResource("1_ixywl")
 
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("2_b1j0g")]
 position = Vector2(13, 332)
+
+[node name="Goal" parent="." unique_id=976189546 instance=ExtResource("3_o304y")]
+position = Vector2(612, 322)
