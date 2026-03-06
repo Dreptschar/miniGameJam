@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name Freezable
 
 @export var freeze_colors: Array[NoteColor] = []
@@ -16,7 +16,8 @@ func _process(delta: float) -> void:
 		if not frozen_color.is_frozen:
 			continue
 		
-		frozen_color.freeze_time_left -= max(frozen_color.freeze_time_left - delta, 0.0)
+		frozen_color.freeze_time_left = max(frozen_color.freeze_time_left - delta, 0.0)
+		print("Color: %s, Time Left: %f" % [frozen_color.note_color, frozen_color.freeze_time_left])
 		
 		if frozen_color.freeze_time_left <= 0.0:
 			frozen_color.is_frozen = false
@@ -28,7 +29,7 @@ func _build_color_states() -> void:
 		freeze_colors_state.append(FrozenColorState.new(color))
 
 func _on_freeze_color_requested(color: NoteColor, duration: float) -> void:
-	var freeze_color_state := _get_color_state(color)
+	var freeze_color_state := get_color_state(color)
 	if freeze_color_state == null:
 		return
 	var was_frozen := freeze_color_state.is_frozen
@@ -39,11 +40,27 @@ func _on_freeze_color_requested(color: NoteColor, duration: float) -> void:
 	if not was_frozen:
 		_on_color_frozen(color)
 
-func _get_color_state(color: NoteColor) -> FrozenColorState:
+func get_color_state(color: NoteColor) -> FrozenColorState:
 	for freeze_color_state in freeze_colors_state:
 		if freeze_color_state.note_color == color:
 			return freeze_color_state
 	return null
+
+func is_color_frozen(color: NoteColor) -> bool:
+	var freeze_color_state := get_color_state(color)
+	return freeze_color_state != null and freeze_color_state.is_frozen
+
+func is_any_color_frozen() -> bool:
+	for freeze_color_state in freeze_colors_state:
+		if freeze_color_state.is_frozen:
+			return true
+	return false
+
+func are_all_colors_frozen() -> bool:
+	for freeze_color_state in freeze_colors_state:
+		if not freeze_color_state.is_frozen:
+			return false
+	return true
 
 func _on_color_frozen(color: NoteColor) -> void:
 	pass

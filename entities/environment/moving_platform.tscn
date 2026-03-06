@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d57k54qjs1u7"]
+
+[ext_resource type="Script" uid="uid://chsmma33txbmo" path="res://entities/environment/moving_platform.gd" id="1_oi4e2"]
+[ext_resource type="Texture2D" uid="uid://ckohmtchrb3qr" path="res://assets/prototype-textures/PNG/Red/texture_01.png" id="2_2onvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6l7ic"]
+
+[node name="MovingPlatform" type="Node2D" unique_id=459696663]
+script = ExtResource("1_oi4e2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=878957800]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_2onvg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2135846872]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=312805948]
+shape = SubResource("RectangleShape2D_6l7ic")
