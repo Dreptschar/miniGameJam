@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d35dr6ljrlo33"]
+
+[ext_resource type="Script" uid="uid://bjb2ldmu323cd" path="res://entities/player/vfx/floating_note.gd" id="1_feavg"]
+[ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_feavg"]
+
+[node name="FloatingNote" type="Node2D" unique_id=1690920752]
+script = ExtResource("1_feavg")
+rise_distance = 80.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593804584]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("2_feavg")

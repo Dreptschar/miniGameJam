@@ -9,6 +9,9 @@ extends CharacterBody2D
 @export var freeze_duration: float = 2.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+const FLOATING_NOTE_SCENE := preload("res://entities/player/vfx/floating_note.tscn")
 
 
 func _physics_process(delta: float) -> void:
@@ -52,10 +55,23 @@ func _update_animation() -> void:
 
 func _handle_note_input() -> void:
 	if Input.is_action_just_pressed("play_note_1"):
-		FreezeManager.request_freeze_color(note_1_color, freeze_duration)
+		_play_whistle(note_1_color)	
 	
 	if Input.is_action_just_pressed("play_note_2"):
-		FreezeManager.request_freeze_color(note_2_color, freeze_duration)
+		_play_whistle(note_2_color)	
 	
 	if Input.is_action_just_pressed("play_note_3"):
-		FreezeManager.request_freeze_color(note_3_color, freeze_duration)
+		_play_whistle(note_3_color)
+	
+func _play_whistle(note_color: NoteColor) -> void:
+	FreezeManager.request_freeze_color(note_color, freeze_duration)
+	_spawn_floating_note(note_color)
+	audio_player.stream = note_color.sound
+	audio_player.play()	
+
+
+func _spawn_floating_note(note_color: NoteColor) -> void:
+	var floating_note := FLOATING_NOTE_SCENE.instantiate() 
+	get_tree().current_scene.add_child(floating_note)
+	floating_note.global_position = global_position + Vector2(0, -16)
+	floating_note.play(note_color)
