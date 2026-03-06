@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://xlgvdeq0tsma"]
 
-[ext_resource type="TileSet" uid="uid://ofgqy8ip2hb2" path="res://assets/tilesets/foreground.tres" id="1_ixywl"]
+[ext_resource type="TileSet" uid="uid://cv8bfglk8hrx6" path="res://assets/tilesets/foreground.tres" id="1_ixywl"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_b1j0g"]
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="3_o304y"]
 
