@@ -1,1 +1,1 @@
-# miniGameJam
+# godot-project-template
