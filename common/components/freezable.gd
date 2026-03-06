@@ -1,7 +1,7 @@
 extends Node
 class_name Freezable
 
-@export var freeze_colors: Array[NoteColor] = []
+var freeze_colors: Array[NoteColor] = []
 @onready var freeze_particles: GPUParticles2D = $FreezeParticles 
 
 var freeze_colors_state: Array[FrozenColorState] = [] 
@@ -9,7 +9,6 @@ var freeze_colors_state: Array[FrozenColorState] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_build_color_states()
 	if FreezeManager:
 		FreezeManager.connect("freeze_color_requested", self._on_freeze_color_requested)
 
@@ -45,6 +44,10 @@ func _on_freeze_color_requested(color: NoteColor, duration: float) -> void:
 		if freeze_particles and are_all_colors_frozen():
 			freeze_particles.emitting = true
 		_on_color_frozen(color)
+
+func set_freeze_colors(colors: Array[NoteColor]) -> void:
+	freeze_colors = colors
+	_build_color_states()
 
 func get_color_state(color: NoteColor) -> FrozenColorState:
 	for freeze_color_state in freeze_colors_state:
