@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://wpce12jc5dbg"]
+
+[ext_resource type="Script" uid="uid://bc6nj40k7obrq" path="res://interaction/interaction area/interaction_manager.gd" id="1_jimth"]
+[ext_resource type="FontFile" uid="uid://c4rqqeadclh7f" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_grehs"]
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_jimth")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_right = 35.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_grehs")
+text = "PRESS (E)"
+horizontal_alignment = 1
+vertical_alignment = 1
