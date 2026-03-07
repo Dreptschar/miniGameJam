@@ -13,7 +13,8 @@ extends CharacterBody2D
 @export var jump_buffer_time: float = 0.10
 @export var fall_gravity_multiplier: float = 1.6
 @export var jump_cut_multiplier: float = 2.2
-@export var freeze_duration: float = 2.0
+@export var quantize_notes_to_beat: bool = true
+@export_range(0.0, 0.25, 0.01) var beat_input_window: float = 0.1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -22,6 +23,12 @@ const FLOATING_NOTE_SCENE := preload("res://entities/player/vfx/floating_note.ts
 
 var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
+var _queued_note_color: NoteColor
+
+
+func _ready() -> void:
+	if quantize_notes_to_beat:
+		BeatManger.beat_hit.connect(_on_beat_hit)
 
 
 func _physics_process(delta: float) -> void:
@@ -98,19 +105,45 @@ func _update_animation() -> void:
 
 func _handle_note_input() -> void:
 	if Input.is_action_just_pressed("play_note_1"):
-		_play_whistle(note_1_color)	
+		_request_note_play(note_1_color)	
 	
 	if Input.is_action_just_pressed("play_note_2"):
-		_play_whistle(note_2_color)	
+		_request_note_play(note_2_color)	
 	
 	if Input.is_action_just_pressed("play_note_3"):
-		_play_whistle(note_3_color)
+		_request_note_play(note_3_color)
+
+func _request_note_play(note_color: NoteColor) -> void:
+	if note_color == null:
+		return
+
+	if quantize_notes_to_beat:
+		if _is_within_beat_input_window():
+			_play_whistle(note_color)
+			_queued_note_color = null
+			return
+		_queued_note_color = note_color
+		return
+
+	_play_whistle(note_color)
 	
 func _play_whistle(note_color: NoteColor) -> void:
-	FreezeManager.request_freeze_color(note_color, freeze_duration)
+	FreezeManager.request_freeze_color(note_color)
 	_spawn_floating_note(note_color)
 	audio_player.stream = note_color.sound
 	audio_player.play()	
+
+func _on_beat_hit(_index: int) -> void:
+	if _queued_note_color == null:
+		return
+
+	_play_whistle(_queued_note_color)
+	_queued_note_color = null
+
+func _is_within_beat_input_window() -> bool:
+	var time_since_last_beat := BeatManger.get_time_since_last_beat()
+	var time_until_next_beat := BeatManger.get_time_until_next_beat()
+	return time_since_last_beat <= beat_input_window or time_until_next_beat <= beat_input_window
 
 
 func _spawn_floating_note(note_color: NoteColor) -> void:

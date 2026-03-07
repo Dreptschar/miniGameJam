@@ -1,7 +1,7 @@
 extends Node
 
-signal freeze_color_requested(color: NoteColor, duration: float)
+signal freeze_color_requested(color: NoteColor)
 
-func request_freeze_color(color: NoteColor, duration: float) -> void:
-	print("Requesting freeze for color: %s, duration: %f" % [color, duration])
-	emit_signal("freeze_color_requested", color, duration)
+func request_freeze_color(color: NoteColor) -> void:
+	print("Requesting freeze for color: %s" % [color])
+	emit_signal("freeze_color_requested", color)

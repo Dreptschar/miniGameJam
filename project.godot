@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 FreezeManager="*uid://b3jfl5atn7eqg"
 LevelManagerAL="*uid://5wbjtabtvo3w"
+BeatManger="*uid://bmyuajogi5shi"
 
 [debug]
 
