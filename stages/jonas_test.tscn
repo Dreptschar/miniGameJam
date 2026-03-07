@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="7_qkhdr"]
 [ext_resource type="Resource" uid="uid://cnpaa2uqir1ha" path="res://entities/note_colors/blue_c.tres" id="8_ixet3"]
 [ext_resource type="PackedScene" uid="uid://8jd4qyly8k8p" path="res://entities/environment/spikes.tscn" id="9_eigce"]
+[ext_resource type="PackedScene" path="res://entities/rotating_platform/rotating_platform.tscn" id="10_82xb2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ugc47"]
 texture = ExtResource("7_qkhdr")
@@ -143,3 +144,6 @@ size = Vector2(16, 60)
 
 [node name="Spikes" parent="." unique_id=1369847397 instance=ExtResource("9_eigce")]
 position = Vector2(564, 311)
+
+[node name="RotatingPlatform" parent="." unique_id=1845665460 instance=ExtResource("10_82xb2")]
+position = Vector2(307, 206)

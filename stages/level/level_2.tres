@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://31f3vwqqxne5"]
+[gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://npqoy7v5h40h"]
 
 [ext_resource type="Script" uid="uid://dvk4umwk05p5w" path="res://common/manager/level_resource.gd" id="1_j2l8c"]
 [ext_resource type="PackedScene" uid="uid://c4xbqd3i31itf" path="res://stages/level/level_2.tscn" id="2_v1m5z"]
