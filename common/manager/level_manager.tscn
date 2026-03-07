@@ -9,11 +9,12 @@
 [ext_resource type="Resource" uid="uid://bim2hb2agd5jv" path="res://stages/level/level_4.tres" id="6_qn7ec"]
 [ext_resource type="Resource" uid="uid://c31dcx2buxuns" path="res://stages/level/level_5.tres" id="7_r8r52"]
 [ext_resource type="Resource" uid="uid://chehseayda28t" path="res://stages/level/level_6.tres" id="8_i85aw"]
-[ext_resource type="Resource" uid="uid://cm42lw3hp2kli" path="res://stages/level/level_ending.tres" id="9_i85aw"]
+[ext_resource type="Resource" uid="uid://cm42lw3hp2kli" path="res://stages/level/level_7.tres" id="9_i85aw"]
+[ext_resource type="Resource" uid="uid://djafdjxl0qd3k" path="res://stages/level/level_end_screen.tres" id="10_17abn"]
 
 [node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
 script = ExtResource("1_nghu8")
-levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw"), ExtResource("6_qn7ec"), ExtResource("7_r8r52"), ExtResource("8_i85aw"), ExtResource("9_i85aw")])
+levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw"), ExtResource("6_qn7ec"), ExtResource("7_r8r52"), ExtResource("8_i85aw"), ExtResource("9_i85aw"), ExtResource("10_17abn")])
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
 anchors_preset = 15

@@ -12,6 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="11_gn0m4"]
 [ext_resource type="PackedScene" uid="uid://c0w4p0jpannt3" path="res://entities/rotating_platform/rotating_platform.tscn" id="11_ydije"]
 
+[sub_resource type="Environment" id="Environment_ydije"]
+background_mode = 3
+tonemap_mode = 1
+tonemap_exposure = 0.72
+glow_enabled = true
+glow_intensity = 1.72
+glow_strength = 0.45
+glow_bloom = 0.4
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6d0mb"]
 texture = ExtResource("3_gn0m4")
 0:0/0 = 0
@@ -157,6 +166,11 @@ sources/0 = SubResource("TileSetAtlasSource_6d0mb")
 sources/2 = SubResource("TileSetAtlasSource_1j3pk")
 
 [node name="Level1" type="Node2D" unique_id=1105359909]
+
+[node name="Look" type="Node" parent="." unique_id=596644251]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1647335637]
+environment = SubResource("Environment_ydije")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
 anchor_mode = 0
