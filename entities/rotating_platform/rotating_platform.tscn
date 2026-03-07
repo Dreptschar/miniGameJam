@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://c0w4p0jpannt3"]
 
+[ext_resource type="Script" uid="uid://b8o6nypypme4j" path="res://entities/rotating_platform/rotating_platform.gd" id="1_h5j8i"]
 [ext_resource type="Texture2D" uid="uid://yjav5hbe3re1" path="res://assets/tilesets/circle_white.png" id="1_hhxde"]
 [ext_resource type="Script" uid="uid://bjjdjnfo4ywbv" path="res://common/components/rotating_platform_component.gd" id="1_n2u7a"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_m4h9q"]
 
 [node name="RotatingPlatform" type="AnimatableBody2D" unique_id=1681768955]
+script = ExtResource("1_h5j8i")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1160455893]
 scale = Vector2(3.9682522, 4.0010705)
@@ -19,5 +21,4 @@ texture = ExtResource("1_hhxde")
 
 [node name="RotatingPlatformComponent" type="Node" parent="." unique_id=1605230816]
 script = ExtResource("1_n2u7a")
-size = Vector2(128, 128)
 collision_shape_path = NodePath("")
