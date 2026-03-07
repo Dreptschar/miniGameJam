@@ -50,23 +50,59 @@ If your local binary is `godot4`, use the same commands with `godot4`.
 - Engine: Godot 4
 - Beat autoload: `BeatManger` in `common/manager/beat_manger.gd`
 - Freeze request autoload: `FreezeManager` in `common/manager/freeze_manager.gd`
+- Level resource: `LevelResource` in `common/manager/level_resource.gd`
 - `Freezable` logic: `common/components/freezable.gd`
 - Player note logic: `entities/player/player.gd`
 - Moving platform logic: `entities/moving_platfrom/moving_platform.gd`
+- Rotating platform component: `common/components/rotating_platform_component.gd`
+- Ready-made rotating platform scene: `entities/rotating_platform/rotating_platform.tscn`
 - Level manager: `common/manager/level_manager.gd` and `common/manager/level_manager.tscn`
 
 - Current gameplay rules:
   - Non-player objects are intended to move on the beat.
   - Player notes are beat-quantized with a small timing window.
+  - Player death currently comes from:
+    - spike hazards,
+    - crush/squash against solids by moving platforms,
+    - any other caller using `Player.die()`.
+  - Death shows a game-over overlay and restarts the current level from the UI.
   - Multi-color freezables use two values:
     - `combo_window_beats`: how many beats the player has to complete the full note combination.
     - `freeze_beats`: how long the object stays fully frozen after all required colors have been hit.
+  - Beat speed is now configured per level resource instead of globally in the level list.
 
 - Moving platform details:
   - Movement is beat-driven.
   - Path modes supported: `CUSTOM`, `HORIZONTAL`, `VERTICAL`.
   - Parent inspector exposes `freeze_beats` and `combo_window_beats` and forwards them to the child `FreezableComponent`.
   - Editor preview draws the platform path and beat-step markers.
+  - Fully frozen moving platforms shake slightly on beat as a visual-only effect.
+  - Freeze visuals are shader-driven now; the old particle effect was removed.
+
+- Rotating platform details:
+  - Implemented as a reusable child component attached to a root `Node2D`/`AnimatableBody2D`.
+  - The component rotates the root in a single configured direction by `rotation_degrees_offset` on each beat.
+  - Freeze config, size, shader settings, and frozen beat shake are exposed on the component via exports.
+  - The current implementation is intentionally simple: rotation is just added per beat, no ping-pong or backtracking.
+
+- Level manager / beat details:
+  - `LevelManager` now exports `Array[Resource]` entries that are `LevelResource` assets.
+  - Each level resource contains:
+    - `scene: PackedScene`
+    - `bpm: float`
+  - `BeatManger.set_bpm()` is used when levels load so each level can run at a different tempo.
+  - Current level resources:
+    - `stages/jonas_test.tres`
+    - `stages/level/level_1.tres`
+    - `stages/level/level_2.tres`
+    - `stages/level/level_3.tres`
+
+- Hazard / UI details:
+  - Spike hazard scene: `entities/environment/spikes.tscn`
+  - Spike behavior script: `entities/environment/spikes.gd`
+  - Game-over overlay scene: `common/manager/game_over_overlay.tscn`
+  - Game-over overlay script: `common/manager/game_over_overlay.gd`
+  - `Player.die()` is the shared death entry point used by hazards and crush logic.
 
 - Recent merge-related fixes:
   - `stages/level/level_1.tscn` had invalid typed export values and a missing `TileSet` ext_resource restored.
