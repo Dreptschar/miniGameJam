@@ -1,19 +1,32 @@
-[gd_scene format=3 uid="uid://c0w4p0jpannt3"]
+[gd_scene format=4 uid="uid://c0w4p0jpannt3"]
 
 [ext_resource type="Script" uid="uid://b8o6nypypme4j" path="res://entities/rotating_platform/rotating_platform.gd" id="1_h5j8i"]
 [ext_resource type="Texture2D" uid="uid://yjav5hbe3re1" path="res://assets/tilesets/circle_white.png" id="1_hhxde"]
 [ext_resource type="Script" uid="uid://bjjdjnfo4ywbv" path="res://common/components/rotating_platform_component.gd" id="1_n2u7a"]
+[ext_resource type="Shader" uid="uid://dd0d4xxg3gqxs" path="res://assets/shaders/frozen_platform.gdshader" id="2_8t3n0"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_m4h9q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ion3b"]
+shader = ExtResource("2_8t3n0")
+shader_parameter/freeze_tint = Color(0.35, 0.35, 0.38, 1)
+shader_parameter/freeze_amount = 0.0
+shader_parameter/darken_strength = 0.28
+shader_parameter/desaturate_strength = 0.22
+shader_parameter/accent_strength = 0.18
+shader_parameter/stripe_color_count = 1
+shader_parameter/stripe_colors = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/stripe_frozen = PackedFloat32Array(0, 0, 0, 0)
 
 [node name="RotatingPlatform" type="AnimatableBody2D" unique_id=1681768955]
 script = ExtResource("1_h5j8i")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1160455893]
 scale = Vector2(3.9682522, 4.0010705)
-polygon = PackedVector2Array(0, -16, 0, -16, -11.48201, -11.047026, -15.850636, -0.2294693, -12.036755, 11.905605, -0.17905426, 15.927517, 12.025368, 12.044292, 16, 0, 0, 0)
+polygon = PackedVector2Array(0, -16, 0, -16, -6.5456424, -13.934237, -11.48201, -11.047026, -14.3867655, -6.2023797, -15.850636, -0.2294693, -13.842873, 6.9687467, -11.032758, 10.834674, -6.319019, 14.206124, -0.17905426, 15.927517, 5.827925, 14.026314, 10.768286, 11.194296, 13.89567, 6.699032, 16, 0, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=690062524]
 texture_filter = 1
+material = SubResource("ShaderMaterial_ion3b")
 scale = Vector2(4, 4)
 texture = ExtResource("1_hhxde")
 

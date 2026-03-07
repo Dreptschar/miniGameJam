@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_l7te0")
 name = "Red"
-color = Color(1, 0, 0, 1)
+color = Color(0.81960785, 0.18039216, 0.16078432, 1)
 note_name = "D"
 sound = ExtResource("2_bimgs")
 metadata/_custom_type_script = "uid://x10yqnunykx3"
