@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://common/manager/level_resource.gd" id="1_g9n2r"]
+[ext_resource type="PackedScene" path="res://stages/level/level_3.tscn" id="2_m6k4s"]
+
+[resource]
+script = ExtResource("1_g9n2r")
+scene = ExtResource("2_m6k4s")
+bpm = 60.0

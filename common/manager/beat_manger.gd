@@ -43,3 +43,10 @@ func get_time_since_last_beat() -> float:
 
 func get_time_until_next_beat() -> float:
 	return get_seconds_per_beat() - _beat_time
+
+
+func set_bpm(value: float, reset_phase: bool = true) -> void:
+	bpm = max(value, 1.0)
+	if reset_phase:
+		_beat_time = 0.0
+		_beat_index = 0

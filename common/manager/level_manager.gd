@@ -1,7 +1,7 @@
 extends CanvasLayer 
 class_name LevelManager
 
-@export var levels: Array[PackedScene] = []
+@export var levels: Array[Resource] = []
 @export var fade_time: float = 0.25
 @export var beat_pulse_color: Color = Color(1, 0.92, 0.75, 0.0)
 @export_range(0.0, 1.0, 0.01) var beat_pulse_alpha: float = 0.14
@@ -53,8 +53,11 @@ func _sync_current_index_from_current_scene() -> void:
 		return 
 	var current_path := current.scene_file_path
 	for i in range(levels.size()):
-		if levels[i] and levels[i].resource_path == current_path:
+		var level: Resource = levels[i]
+		var scene := _get_level_scene(level)
+		if scene != null and scene.resource_path == current_path:
 			_current_index = i
+			_apply_level_bpm(level)
 			return
 func _fade_out() -> void:
 	if fade_rect == null:
@@ -83,15 +86,17 @@ func load_level(index: int) -> void:
 		return
 	if index < 0 or index >= levels.size():
 		return 
-	var packed := levels[index]
-	if not packed:
+	var level: Resource = levels[index]
+	var scene := _get_level_scene(level)
+	if scene == null:
 		return
 	_is_transitioning = true
 	_hide_game_over()
 	await _fade_out()
-	get_tree().change_scene_to_packed(packed)
+	get_tree().change_scene_to_packed(scene)
 	await get_tree().process_frame
 	_current_index = index
+	_apply_level_bpm(level)
 	_cache_camera_zoom()
 	await _fade_in()
 	_is_transitioning = false
@@ -177,3 +182,28 @@ func _reload_current_scene() -> void:
 	_cache_camera_zoom()
 	await _fade_in()
 	_is_transitioning = false
+
+
+func _apply_level_bpm(level: Resource) -> void:
+	if level == null or BeatManger == null:
+		return
+
+	BeatManger.set_bpm(_get_level_bpm(level))
+
+
+func _get_level_scene(level: Resource) -> PackedScene:
+	if level == null:
+		return null
+
+	return level.get("scene") as PackedScene
+
+
+func _get_level_bpm(level: Resource) -> float:
+	if level == null:
+		return 60.0
+
+	var bpm_value: Variant = level.get("bpm")
+	if bpm_value == null:
+		return 60.0
+
+	return max(float(bpm_value), 1.0)

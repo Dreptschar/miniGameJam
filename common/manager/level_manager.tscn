@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://5wbjtabtvo3w"]
 
 [ext_resource type="Script" uid="uid://dsmnmnct1hebt" path="res://common/manager/level_manager.gd" id="1_nghu8"]
-[ext_resource type="PackedScene" uid="uid://xlgvdeq0tsma" path="res://stages/level/level_1.tscn" id="2_k0fef"]
-[ext_resource type="PackedScene" uid="uid://ckmq77g22g7qi" path="res://stages/jonas_test.tscn" id="2_xm4af"]
-[ext_resource type="PackedScene" uid="uid://c4xbqd3i31itf" path="res://stages/level/level_2.tscn" id="3_ms8xw"]
+[ext_resource type="Resource" path="res://stages/level/level_1.tres" id="2_k0fef"]
+[ext_resource type="Resource" path="res://stages/jonas_test.tres" id="2_xm4af"]
+[ext_resource type="Resource" path="res://stages/level/level_2.tres" id="3_ms8xw"]
 [ext_resource type="PackedScene" uid="uid://dfq6muh8myw6" path="res://common/manager/game_over_overlay.tscn" id="4_bm3m2"]
+[ext_resource type="Resource" path="res://stages/level/level_3.tres" id="5_aaacw"]
 
 [node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
 script = ExtResource("1_nghu8")
-levels = Array[PackedScene]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw")])
+levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw")])
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
 anchors_preset = 15
