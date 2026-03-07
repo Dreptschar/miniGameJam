@@ -5,7 +5,6 @@ class_name Freezable
 var freeze_colors: Array[NoteColor] = []
 @export_range(1, 16, 1) var freeze_beats: int = 2
 @export_range(1, 16, 1) var combo_window_beats: int = 2
-@onready var freeze_particles: GPUParticles2D = $FreezeParticles 
 
 var freeze_colors_state: Array[FrozenColorState] = [] 
 var _object_freeze_beats_left: int = 0
@@ -37,8 +36,6 @@ func _on_freeze_color_requested(color: NoteColor) -> void:
 
 	if _are_all_colors_armed():
 		_object_freeze_beats_left = max(freeze_beats, 1)
-		if freeze_particles:
-			freeze_particles.emitting = true
 		_on_color_frozen(color)
 
 func _on_beat_hit(_index: int) -> void:
@@ -50,8 +47,6 @@ func _on_beat_hit(_index: int) -> void:
 			for frozen_color in freeze_colors_state:
 				frozen_color.is_frozen = false
 				frozen_color.active_beats_left = 0
-			if freeze_particles:
-				freeze_particles.emitting = false
 			_on_color_unfrozen(null)
 		return
 
@@ -89,6 +84,10 @@ func is_any_color_frozen() -> bool:
 func are_all_colors_frozen() -> bool:
 	return _is_object_fully_frozen()
 
+
+func is_partially_frozen() -> bool:
+	return is_any_color_frozen() and not _is_object_fully_frozen()
+
 func _are_all_colors_armed() -> bool:
 	for freeze_color_state in freeze_colors_state:
 		if not freeze_color_state.is_frozen:
@@ -114,4 +113,4 @@ func _on_color_frozen(color: NoteColor) -> void:
 	pass
 
 func _on_color_unfrozen(color: NoteColor) -> void:
-	pass	
+	pass

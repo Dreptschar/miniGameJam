@@ -2,6 +2,8 @@
 extends AnimatableBody2D 
 class_name MovingPlatform
 
+const FROZEN_PLATFORM_SHADER := preload("res://assets/shaders/frozen_platform.gdshader")
+
 enum PathMode {
 	CUSTOM,
 	HORIZONTAL,
@@ -41,6 +43,32 @@ enum PathMode {
 	set(value):
 		size = Vector2(max(value.x, 1.0), max(value.y, 1.0))
 		_refresh_editor_state()
+@export_range(0.0, 1.0, 0.01) var partial_freeze_amount: float = 0.45:
+	set(value):
+		partial_freeze_amount = clampf(value, 0.0, 1.0)
+		_update_state_visuals()
+@export var freeze_shader_tint: Color = Color(0.35, 0.35, 0.38, 1.0):
+	set(value):
+		freeze_shader_tint = value
+		_update_shader_params()
+@export_range(0.0, 1.0, 0.01) var freeze_darken_strength: float = 0.28:
+	set(value):
+		freeze_darken_strength = clampf(value, 0.0, 1.0)
+		_update_shader_params()
+@export_range(0.0, 1.0, 0.01) var freeze_desaturate_strength: float = 0.22:
+	set(value):
+		freeze_desaturate_strength = clampf(value, 0.0, 1.0)
+		_update_shader_params()
+@export_range(0.0, 1.0, 0.01) var freeze_accent_strength: float = 0.18:
+	set(value):
+		freeze_accent_strength = clampf(value, 0.0, 1.0)
+		_update_shader_params()
+@export_range(0.0, 1.0, 0.01) var full_freeze_amount: float = 1.0:
+	set(value):
+		full_freeze_amount = clampf(value, 0.0, 1.0)
+		_update_state_visuals()
+@export_range(0.0, 12.0, 0.1) var frozen_beat_shake_distance: float = 2.0
+@export_range(0.01, 0.3, 0.01) var frozen_beat_shake_duration: float = 0.12
 
 @onready var freezeable_component: Freezable = $FreezableComponent
 @onready var sprite2d: Sprite2D = $Sprite2D
@@ -52,6 +80,9 @@ var _current_step: int = 0
 var _direction: int = 1
 var _move_tween: Tween
 var _current_motion: Vector2 = Vector2.ZERO
+var _freeze_material: ShaderMaterial
+var _shake_tween: Tween
+var _base_sprite_position: Vector2
 
 func _ready() -> void:
 	set_notify_transform(true)
@@ -59,6 +90,8 @@ func _ready() -> void:
 	_end = _start + move_offset
 	_apply_configuration()
 	global_position = _get_step_position()
+	if sprite2d != null:
+		_base_sprite_position = sprite2d.position
 	if not Engine.is_editor_hint():
 		BeatManger.beat_hit.connect(_on_beat_hit)
 
@@ -72,6 +105,7 @@ func _process(_delta: float) -> void:
 	if freezeable_component.are_all_colors_frozen() and _move_tween != null:
 		_move_tween.kill()
 		_move_tween = null
+	_update_state_visuals()
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():
@@ -97,6 +131,7 @@ func _update_visuals() -> void:
 
 	var tex_size := sprite2d.texture.get_size()
 	sprite2d.scale = size / tex_size
+	_ensure_shader_material()
 
 func _ensure_unique_shape() -> void:
 	if collision_shape == null or collision_shape.shape == null:
@@ -107,6 +142,7 @@ func _ensure_unique_shape() -> void:
 
 func _on_beat_hit(_index: int) -> void:
 	if freezeable_component.are_all_colors_frozen():
+		_play_frozen_beat_shake()
 		return
 
 	var beat_duration := 60.0 / BeatManger.bpm
@@ -151,8 +187,9 @@ func _apply_configuration() -> void:
 	freezeable_component.freeze_beats = freeze_beats
 	freezeable_component.combo_window_beats = combo_window_beats
 	freezeable_component.set_freeze_colors(freeze_colors)
-	sprite2d.modulate = freezeable_component.get_tint()
 	_update_visuals()
+	_update_shader_params()
+	_update_state_visuals()
 
 func _get_effective_move_offset() -> Vector2:
 	match path_mode:
@@ -178,3 +215,67 @@ func is_moving_down() -> bool:
 
 func get_current_motion() -> Vector2:
 	return _current_motion
+
+
+func _update_state_visuals() -> void:
+	if sprite2d == null or freezeable_component == null:
+		return
+
+	var base_tint := freezeable_component.get_tint()
+	sprite2d.modulate = base_tint
+
+	var freeze_amount := 0.0
+	if freezeable_component.are_all_colors_frozen():
+		freeze_amount = full_freeze_amount
+	elif freezeable_component.is_partially_frozen():
+		freeze_amount = partial_freeze_amount
+
+	if _freeze_material != null:
+		_freeze_material.set_shader_parameter("freeze_amount", freeze_amount)
+
+
+func _play_frozen_beat_shake() -> void:
+	if sprite2d == null or frozen_beat_shake_distance <= 0.0:
+		return
+
+	if _shake_tween != null:
+		_shake_tween.kill()
+
+	sprite2d.position = _base_sprite_position
+	var shake_offset := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+	if shake_offset == Vector2.ZERO:
+		shake_offset = Vector2(0.0, -1.0)
+	shake_offset = shake_offset.normalized() * frozen_beat_shake_distance
+
+	_shake_tween = create_tween()
+	_shake_tween.tween_property(sprite2d, "position", _base_sprite_position + shake_offset, frozen_beat_shake_duration * 0.35)
+	_shake_tween.tween_property(sprite2d, "position", _base_sprite_position, frozen_beat_shake_duration * 0.65)
+	_shake_tween.finished.connect(_on_shake_finished)
+
+
+func _on_shake_finished() -> void:
+	_shake_tween = null
+	if sprite2d != null:
+		sprite2d.position = _base_sprite_position
+
+
+func _ensure_shader_material() -> void:
+	if sprite2d == null:
+		return
+	if _freeze_material != null:
+		return
+
+	_freeze_material = ShaderMaterial.new()
+	_freeze_material.shader = FROZEN_PLATFORM_SHADER
+	sprite2d.material = _freeze_material
+	_update_shader_params()
+
+
+func _update_shader_params() -> void:
+	if _freeze_material == null:
+		return
+
+	_freeze_material.set_shader_parameter("freeze_tint", freeze_shader_tint)
+	_freeze_material.set_shader_parameter("darken_strength", freeze_darken_strength)
+	_freeze_material.set_shader_parameter("desaturate_strength", freeze_desaturate_strength)
+	_freeze_material.set_shader_parameter("accent_strength", freeze_accent_strength)
