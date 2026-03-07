@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0w4p0jpannt3"]
 
+[ext_resource type="Texture2D" uid="uid://yjav5hbe3re1" path="res://assets/tilesets/circle_white.png" id="1_hhxde"]
 [ext_resource type="Script" uid="uid://bjjdjnfo4ywbv" path="res://common/components/rotating_platform_component.gd" id="1_n2u7a"]
-[ext_resource type="Texture2D" uid="uid://cbcr7lhnt2274" path="res://assets/tilesets/circle_black.png" id="2_ouu2b"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_m4h9q"]
 
 [node name="RotatingPlatform" type="AnimatableBody2D" unique_id=1681768955]
@@ -13,7 +13,7 @@ polygon = PackedVector2Array(0, -16, 0, -16, -11.48201, -11.047026, -15.850636, 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=690062524]
 texture_filter = 1
 scale = Vector2(4, 4)
-texture = ExtResource("2_ouu2b")
+texture = ExtResource("1_hhxde")
 
 [node name="FreezableComponent" parent="." unique_id=1393634516 instance=ExtResource("3_m4h9q")]
 

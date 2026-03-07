@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="NoteColor" format=3 uid="uid://kintqv715xh5"]
 
 [ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="1_c4mob"]
-[ext_resource type="AudioStream" uid="uid://dbtxodti7sgg3" path="res://assets/audio/IrishTinWhistle_E_52_single_Loop.wav" id="2_3vojo"]
+[ext_resource type="AudioStream" uid="uid://1j1epp6arfgw" path="res://assets/audio/whistle02.mp3" id="2_3vojo"]
 
 [resource]
 script = ExtResource("1_c4mob")
