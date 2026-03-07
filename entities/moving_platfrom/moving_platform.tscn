@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_vk8ht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2yvd"]
+size = Vector2(16, 16)
 
 [node name="MovingPlatform" type="AnimatableBody2D" unique_id=300887378]
 script = ExtResource("1_oi4e2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=878957800]
-scale = Vector2(0.02, 0.02)
+scale = Vector2(0.015625, 0.015625)
 texture = ExtResource("2_j2yvd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=312805948]
