@@ -138,28 +138,22 @@ func _update_state_visuals() -> void:
 	if _sprite2d == null or _freezeable_component == null:
 		return
 
-	var base_tint := _freezeable_component.get_tint()
-	_sprite2d.modulate = base_tint
-
-	var freeze_amount := 0.0
-	if _freezeable_component.are_all_colors_frozen():
-		freeze_amount = _get_full_freeze_amount()
-	elif _freezeable_component.is_partially_frozen():
-		freeze_amount = _get_partial_freeze_amount()
-
-	if _freeze_material != null:
-		_freeze_material.set_shader_parameter("freeze_amount", freeze_amount)
+	_freezeable_component.apply_visual_shader_state(
+		_sprite2d,
+		_freeze_material,
+		_get_partial_freeze_amount(),
+		_get_full_freeze_amount(),
+		_get_freeze_shader_tint(),
+		_get_freeze_darken_strength(),
+		_get_freeze_desaturate_strength(),
+		_get_freeze_accent_strength()
+	)
 
 
 func _ensure_shader_material() -> void:
 	if _sprite2d == null:
 		return
-	if _freeze_material != null:
-		return
-
-	_freeze_material = ShaderMaterial.new()
-	_freeze_material.shader = FROZEN_PLATFORM_SHADER
-	_sprite2d.material = _freeze_material
+	_freeze_material = _freezeable_component.ensure_visual_shader_material(_sprite2d, FROZEN_PLATFORM_SHADER, _freeze_material)
 	_update_shader_params()
 
 
@@ -167,10 +161,16 @@ func _update_shader_params() -> void:
 	if _freeze_material == null:
 		return
 
-	_freeze_material.set_shader_parameter("freeze_tint", _get_freeze_shader_tint())
-	_freeze_material.set_shader_parameter("darken_strength", _get_freeze_darken_strength())
-	_freeze_material.set_shader_parameter("desaturate_strength", _get_freeze_desaturate_strength())
-	_freeze_material.set_shader_parameter("accent_strength", _get_freeze_accent_strength())
+	_freezeable_component.apply_visual_shader_state(
+		_sprite2d,
+		_freeze_material,
+		_get_partial_freeze_amount(),
+		_get_full_freeze_amount(),
+		_get_freeze_shader_tint(),
+		_get_freeze_darken_strength(),
+		_get_freeze_desaturate_strength(),
+		_get_freeze_accent_strength()
+	)
 
 
 func _play_frozen_beat_shake() -> void:
