@@ -10,6 +10,7 @@ var freeze_colors: Array[NoteColor] = []
 
 var freeze_colors_state: Array[FrozenColorState] = [] 
 var _object_freeze_beats_left: int = 0
+var _freeze_activation_queued: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,6 +23,7 @@ func _ready() -> void:
 func _build_color_states() -> void:
 	freeze_colors_state.clear()
 	_object_freeze_beats_left = 0
+	_freeze_activation_queued = false
 	for color in freeze_colors:
 		freeze_colors_state.append(FrozenColorState.new(color))
 
@@ -37,10 +39,17 @@ func _on_freeze_color_requested(color: NoteColor) -> void:
 	freeze_color_state.active_beats_left = max(combo_window_beats, 1)
 
 	if _are_all_colors_armed():
-		_object_freeze_beats_left = max(freeze_beats, 1)
-		_on_color_frozen(color)
+		_freeze_activation_queued = true
 
 func _on_beat_hit(_index: int) -> void:
+	if _freeze_activation_queued:
+		if _are_all_colors_armed():
+			_freeze_activation_queued = false
+			_object_freeze_beats_left = max(freeze_beats, 1)
+			_on_color_frozen(null)
+			return
+		_freeze_activation_queued = false
+
 	if _is_object_fully_frozen():
 		_object_freeze_beats_left = max(_object_freeze_beats_left - 1, 0)
 		print("Object Freeze Beats Left: %d" % _object_freeze_beats_left)
