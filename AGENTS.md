@@ -44,3 +44,30 @@ If your local binary is `godot4`, use the same commands with `godot4`.
   - scenes/scripts touched,
   - manual test steps,
   - screenshot/GIF for visible gameplay changes.
+
+## Current Handoff
+- Project path: `/home/dreptschar/Workspace/GameJam/miniGameJam`
+- Engine: Godot 4
+- Beat autoload: `BeatManger` in `common/manager/beat_manger.gd`
+- Freeze request autoload: `FreezeManager` in `common/manager/freeze_manager.gd`
+- `Freezable` logic: `common/components/freezable.gd`
+- Player note logic: `entities/player/player.gd`
+- Moving platform logic: `entities/moving_platfrom/moving_platform.gd`
+- Level manager: `common/manager/level_manager.gd` and `common/manager/level_manager.tscn`
+
+- Current gameplay rules:
+  - Non-player objects are intended to move on the beat.
+  - Player notes are beat-quantized with a small timing window.
+  - Multi-color freezables use two values:
+    - `combo_window_beats`: how many beats the player has to complete the full note combination.
+    - `freeze_beats`: how long the object stays fully frozen after all required colors have been hit.
+
+- Moving platform details:
+  - Movement is beat-driven.
+  - Path modes supported: `CUSTOM`, `HORIZONTAL`, `VERTICAL`.
+  - Parent inspector exposes `freeze_beats` and `combo_window_beats` and forwards them to the child `FreezableComponent`.
+  - Editor preview draws the platform path and beat-step markers.
+
+- Recent merge-related fixes:
+  - `stages/level/level_1.tscn` had invalid typed export values and a missing `TileSet` ext_resource restored.
+  - `common/manager/level_manager.tscn` had its `levels` array restored.

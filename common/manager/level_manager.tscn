@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dsmnmnct1hebt" path="res://common/manager/level_manager.gd" id="1_nghu8"]
 [ext_resource type="PackedScene" uid="uid://xlgvdeq0tsma" path="res://stages/level/level_1.tscn" id="2_k0fef"]
+[ext_resource type="PackedScene" uid="uid://ckmq77g22g7qi" path="res://stages/jonas_test.tscn" id="2_xm4af"]
 [ext_resource type="PackedScene" uid="uid://c4xbqd3i31itf" path="res://stages/level/level_2.tscn" id="3_ms8xw"]
-[ext_resource type="PackedScene" uid="uid://bclte6okxudq2" path="res://stages/level/level_3.tscn" id="4_ms8xw"]
+[ext_resource type="PackedScene" path="res://common/manager/game_over_overlay.tscn" id="4_bm3m2"]
 
 [node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
 script = ExtResource("1_nghu8")
-levels = Array[PackedScene]([ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("4_ms8xw")])
+levels = Array[PackedScene]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw")])
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
 anchors_preset = 15
@@ -22,3 +23,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GameOverOverlay" parent="." unique_id=764195694 instance=ExtResource("4_bm3m2")]

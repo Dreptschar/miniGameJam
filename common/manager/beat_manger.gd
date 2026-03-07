@@ -4,7 +4,7 @@ extends Node
 signal beat_hit(index: int)
 
 @export var bpm : float = 60.0
-@export var beat_sound: AudioStream = preload("res://test_import/assets/sounds/tap.wav")
+@export var beat_sound: AudioStream = preload("res://assets/audio/van_wiese-bass-ui-298402.mp3")
 @export_range(-40.0, 6.0, 0.5) var beat_volume_db: float = -8.0
 
 var _beat_time: float = 0.0

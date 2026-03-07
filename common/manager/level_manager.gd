@@ -15,12 +15,15 @@ var _is_transitioning: bool = false
 var _beat_pulse_tween: Tween
 var _camera_tween: Tween
 var _base_camera_zoom: Vector2 = Vector2.ONE
+var _is_game_over_visible: bool = false
 
 @onready var fade_rect: ColorRect = $FadeRect
 @onready var beat_pulse_rect: ColorRect = $BeatPulseRect
+@onready var game_over_overlay: Control = $GameOverOverlay
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	if fade_rect:
 		fade_rect.color = Color(0, 0, 0, 0)
 		fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -28,10 +31,19 @@ func _ready() -> void:
 		beat_pulse_rect.color = beat_pulse_color
 		beat_pulse_rect.color.a = 0.0
 		beat_pulse_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if game_over_overlay:
+		game_over_overlay.call("hide_overlay")
+		game_over_overlay.connect("restart_pressed", Callable(self, "_on_game_over_restart_pressed"))
 
 	if BeatManger:
 		BeatManger.beat_hit.connect(_on_beat_hit)
 
+	_sync_current_index_from_current_scene()
+	_cache_camera_zoom()
+	call_deferred("_refresh_scene_tracking")
+
+
+func _refresh_scene_tracking() -> void:
 	_sync_current_index_from_current_scene()
 	_cache_camera_zoom()
 
@@ -75,6 +87,7 @@ func load_level(index: int) -> void:
 	if not packed:
 		return
 	_is_transitioning = true
+	_hide_game_over()
 	await _fade_out()
 	get_tree().change_scene_to_packed(packed)
 	await get_tree().process_frame
@@ -84,8 +97,22 @@ func load_level(index: int) -> void:
 	_is_transitioning = false
 
 func restart_level() -> void:
+	_sync_current_index_from_current_scene()
 	if _current_index >= 0:
 		load_level(_current_index)
+		return
+
+	_reload_current_scene()
+
+
+func show_game_over() -> void:
+	if _is_transitioning or _is_game_over_visible:
+		return
+
+	_is_game_over_visible = true
+	get_tree().paused = true
+	if game_over_overlay:
+		game_over_overlay.call("show_overlay")
 
 func _on_beat_hit(_index: int) -> void:
 	if beat_pulse_rect == null or beat_pulse_alpha <= 0.0:
@@ -121,3 +148,33 @@ func _pulse_camera() -> void:
 	_camera_tween = create_tween()
 	_camera_tween.tween_property(camera, "zoom", hit_zoom, beat_zoom_in_time)
 	_camera_tween.tween_property(camera, "zoom", _base_camera_zoom, beat_zoom_out_time)
+
+
+func _hide_game_over() -> void:
+	_is_game_over_visible = false
+	get_tree().paused = false
+	if game_over_overlay:
+		game_over_overlay.call("hide_overlay")
+
+
+func _on_game_over_restart_pressed() -> void:
+	restart_level()
+
+
+func _reload_current_scene() -> void:
+	if _is_transitioning:
+		return
+
+	var current_scene := get_tree().current_scene
+	if current_scene == null or current_scene.scene_file_path.is_empty():
+		return
+
+	_is_transitioning = true
+	_hide_game_over()
+	await _fade_out()
+	get_tree().change_scene_to_file(current_scene.scene_file_path)
+	await get_tree().process_frame
+	_sync_current_index_from_current_scene()
+	_cache_camera_zoom()
+	await _fade_in()
+	_is_transitioning = false

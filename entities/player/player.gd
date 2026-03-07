@@ -24,6 +24,7 @@ const FLOATING_NOTE_SCENE := preload("res://entities/player/vfx/floating_note.ts
 var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
 var _queued_note_color: NoteColor
+var _is_dead: bool = false
 
 
 func _ready() -> void:
@@ -32,6 +33,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _is_dead:
+		return
+
 	_update_jump_timers(delta)
 	_handle_jump_buffer_input()
 	_apply_gravity(delta)
@@ -151,3 +155,14 @@ func _spawn_floating_note(note_color: NoteColor) -> void:
 	get_tree().current_scene.add_child(floating_note)
 	floating_note.global_position = global_position + Vector2(0, -16)
 	floating_note.play(note_color)
+
+
+func die() -> void:
+	if _is_dead:
+		return
+
+	_is_dead = true
+	velocity = Vector2.ZERO
+	collision_layer = 0
+	collision_mask = 0
+	LevelManagerAL.show_game_over()
