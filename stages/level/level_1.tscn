@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://xlgvdeq0tsma"]
 
+[ext_resource type="TileSet" uid="uid://cv8bfglk8hrx6" path="res://assets/tilesets/foreground.tres" id="1_ixywl"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_b1j0g"]
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="3_o304y"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="4_1c2oi"]
@@ -164,12 +165,6 @@ tile_set = ExtResource("1_ixywl")
 
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("2_b1j0g")]
 position = Vector2(13, 332)
-move_speed = null
-accel_ground = null
-decel_ground = null
-coyote_time = null
-jump_buffer_time = null
-quantize_notes_to_beat = null
 
 [node name="Goal" parent="." unique_id=976189546 instance=ExtResource("3_o304y")]
 position = Vector2(612, 322)
@@ -189,8 +184,8 @@ tile_set = SubResource("TileSet_ptfe6")
 [node name="MovingPlatform" parent="." unique_id=300887378 instance=ExtResource("4_1c2oi")]
 position = Vector2(306, 91)
 path_mode = 2
-freeze_beats = null
-combo_window_beats = null
+freeze_beats = 2
+combo_window_beats = 2
 freeze_colors = Array[ExtResource("5_f3vfr")]([ExtResource("7_7os5w")])
 size = Vector2(16, 60)
 
@@ -198,6 +193,6 @@ size = Vector2(16, 60)
 position = Vector2(412, 289)
 path_mode = 1
 freeze_beats = 5
-combo_window_beats = null
+combo_window_beats = 2
 freeze_colors = Array[ExtResource("5_f3vfr")]([ExtResource("7_7os5w"), ExtResource("6_7os5w")])
 size = Vector2(60, 16)
