@@ -123,13 +123,13 @@ func _request_note_play(note_color: NoteColor) -> void:
 	if note_color == null:
 		return
 
-	if quantize_notes_to_beat:
-		if _is_within_beat_input_window():
-			_play_whistle(note_color)
-			_queued_note_color = null
-			return
-		_queued_note_color = note_color
-		return
+	# if quantize_notes_to_beat:
+	# 	if _is_within_beat_input_window():
+	# 		_play_whistle(note_color)
+	# 		_queued_note_color = null
+	# 		return
+	# 	_queued_note_color = note_color
+	# 	return
 
 	_play_whistle(note_color)
 	
