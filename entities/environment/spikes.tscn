@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8jd4qyly8k8p"]
 
 [ext_resource type="Script" path="res://entities/environment/spikes.gd" id="1_1q6xq"]
-[ext_resource type="Texture2D" uid="uid://ce0bc6gkxopha" path="res://assets/spike.png" id="2_pkgnh"]
+[ext_resource type="Texture2D" uid="uid://b2ghsbjd8u3oy" path="res://assets/spike_dark.png" id="2_pkgnh"]
 
 [node name="Spikes" type="Area2D" unique_id=1229437094]
 script = ExtResource("1_1q6xq")
@@ -12,4 +12,4 @@ texture = ExtResource("2_pkgnh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=538908483]
 position = Vector2(8.05892, -8.162796)
-polygon = PackedVector2Array(0, -9, 2, -8, 9, 8, -9, 8, -2, -8, -2, -8)
+polygon = PackedVector2Array(-0.058919907, -7.837204, 1.9410801, -6.837204, 7.94108, 8.162796, -8.05892, 8.162796, -2.05892, -6.837204)
