@@ -12,11 +12,13 @@ enum RotationDirection {
 @export_node_path("Freezable") var freezable_component_path: NodePath = NodePath("../FreezableComponent")
 @export_node_path("Sprite2D") var sprite_path: NodePath = NodePath("../Sprite2D")
 @export_node_path("CollisionShape2D") var collision_shape_path: NodePath = NodePath("../CollisionShape2D")
+@export_node_path("CollisionPolygon2D") var collision_polygon_path: NodePath = NodePath("../CollisionPolygon2D")
 
 var _root: Node2D
 var _freezeable_component: Freezable
 var _sprite2d: Sprite2D
 var _collision_shape: CollisionShape2D
+var _collision_polygon: CollisionPolygon2D
 var _rotation_tween: Tween
 var _freeze_material: ShaderMaterial
 var _shake_tween: Tween
@@ -28,6 +30,8 @@ func _ready() -> void:
 	_resolve_nodes()
 	if _root == null:
 		return
+	if _root is AnimatableBody2D:
+		(_root as AnimatableBody2D).sync_to_physics = true
 
 	_apply_configuration()
 	if _sprite2d != null:
@@ -50,6 +54,7 @@ func _resolve_nodes() -> void:
 	_freezeable_component = get_node_or_null(freezable_component_path) as Freezable
 	_sprite2d = get_node_or_null(sprite_path) as Sprite2D
 	_collision_shape = get_node_or_null(collision_shape_path) as CollisionShape2D
+	_collision_polygon = get_node_or_null(collision_polygon_path) as CollisionPolygon2D
 
 
 func _on_beat_hit(_index: int) -> void:
@@ -68,6 +73,7 @@ func _on_beat_hit(_index: int) -> void:
 		_rotation_tween.kill()
 
 	_rotation_tween = create_tween()
+	_rotation_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_rotation_tween.tween_property(_root, "rotation_degrees", target_rotation_degrees, snap_duration)
 	_rotation_tween.finished.connect(_on_rotation_finished)
 
@@ -106,14 +112,14 @@ func _apply_configuration() -> void:
 
 func _update_visuals() -> void:
 	_ensure_unique_shape()
-	var has_rectangle_shape := false
 	if _collision_shape != null:
 		var shape := _collision_shape.shape as RectangleShape2D
 		if shape != null:
 			shape.size = _get_size()
-			has_rectangle_shape = true
 
-	if has_rectangle_shape and _sprite2d != null and _sprite2d.texture != null:
+	_update_collision_polygon_scale()
+
+	if _sprite2d != null and _sprite2d.texture != null:
 		var tex_size := _sprite2d.texture.get_size()
 		if tex_size.x != 0.0 and tex_size.y != 0.0:
 			_sprite2d.scale = _get_size() / tex_size
@@ -127,6 +133,31 @@ func _ensure_unique_shape() -> void:
 
 	if not _collision_shape.shape.resource_local_to_scene:
 		_collision_shape.shape = _collision_shape.shape.duplicate()
+
+
+func _update_collision_polygon_scale() -> void:
+	if _collision_polygon == null:
+		return
+	if _collision_polygon.polygon.is_empty():
+		return
+
+	var polygon_size := _get_polygon_size(_collision_polygon.polygon)
+	if is_zero_approx(polygon_size.x) or is_zero_approx(polygon_size.y):
+		return
+
+	var target_size := _get_size()
+	_collision_polygon.scale = Vector2(target_size.x / polygon_size.x, target_size.y / polygon_size.y)
+
+
+func _get_polygon_size(polygon: PackedVector2Array) -> Vector2:
+	var min_point := polygon[0]
+	var max_point := polygon[0]
+	for point in polygon:
+		min_point.x = min(min_point.x, point.x)
+		min_point.y = min(min_point.y, point.y)
+		max_point.x = max(max_point.x, point.x)
+		max_point.y = max(max_point.y, point.y)
+	return max_point - min_point
 
 
 func _get_effective_rotation_offset() -> float:
