@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_j2yvd"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_vk8ht"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6l7ic"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2yvd"]
 
 [node name="MovingPlatform" type="AnimatableBody2D" unique_id=300887378]
 script = ExtResource("1_oi4e2")
@@ -14,6 +14,6 @@ scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_j2yvd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=312805948]
-shape = SubResource("RectangleShape2D_6l7ic")
+shape = SubResource("RectangleShape2D_j2yvd")
 
 [node name="FreezableComponent" parent="." unique_id=105353377 instance=ExtResource("3_vk8ht")]

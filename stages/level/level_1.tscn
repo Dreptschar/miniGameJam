@@ -117,13 +117,12 @@ position = Vector2(13, 332)
 [node name="Goal" parent="." unique_id=976189546 instance=ExtResource("3_o304y")]
 position = Vector2(612, 322)
 
-[node name="MovingPlatform2" parent="." unique_id=300887378 instance=ExtResource("4_1c2oi")]
+[node name="MovingPlatform" parent="." unique_id=300887378 instance=ExtResource("4_1c2oi")]
+position = Vector2(181, 269)
+
+[node name="MovingPlatform2" parent="." unique_id=1772266526 instance=ExtResource("4_1c2oi")]
 position = Vector2(346, 252)
 freeze_colors = Array[ExtResource("5_f3vfr")]([ExtResource("6_7os5w"), ExtResource("7_7os5w")])
-
-[node name="MovingPlatform" parent="." unique_id=1399360033 instance=ExtResource("4_1c2oi")]
-position = Vector2(176, 302)
-freeze_colors = Array[ExtResource("5_f3vfr")]([ExtResource("6_7os5w")])
 
 [node name="TileMap" type="Node" parent="." unique_id=1510684025]
 
