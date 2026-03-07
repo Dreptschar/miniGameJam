@@ -1,20 +1,33 @@
-[gd_scene format=3 uid="uid://d57k54qjs1u7"]
+[gd_scene format=4 uid="uid://d57k54qjs1u7"]
 
 [ext_resource type="Script" uid="uid://chsmma33txbmo" path="res://entities/moving_platfrom/moving_platform.gd" id="1_oi4e2"]
-[ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_j2yvd"]
+[ext_resource type="Shader" uid="uid://dd0d4xxg3gqxs" path="res://assets/shaders/frozen_platform.gdshader" id="2_pmwar"]
+[ext_resource type="Texture2D" uid="uid://dx3ce6jlyrvm7" path="res://assets/basicwhite.png" id="3_dvgny"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_vk8ht"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2yvd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrw2a"]
+shader = ExtResource("2_pmwar")
+shader_parameter/freeze_tint = Color(0.35, 0.35, 0.38, 1)
+shader_parameter/freeze_amount = 0.0
+shader_parameter/darken_strength = 0.28
+shader_parameter/desaturate_strength = 0.22
+shader_parameter/accent_strength = 0.18
+shader_parameter/stripe_color_count = 1
+shader_parameter/stripe_colors = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/stripe_frozen = PackedFloat32Array(0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuvkt"]
 size = Vector2(16, 16)
 
 [node name="MovingPlatform" type="AnimatableBody2D" unique_id=300887378]
 script = ExtResource("1_oi4e2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=878957800]
+material = SubResource("ShaderMaterial_vrw2a")
 scale = Vector2(0.015625, 0.015625)
-texture = ExtResource("2_j2yvd")
+texture = ExtResource("3_dvgny")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=312805948]
-shape = SubResource("RectangleShape2D_j2yvd")
+shape = SubResource("RectangleShape2D_iuvkt")
 
 [node name="FreezableComponent" parent="." unique_id=105353377 instance=ExtResource("3_vk8ht")]
