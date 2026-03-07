@@ -109,6 +109,9 @@ sources/0 = SubResource("TileSetAtlasSource_ugc47")
 [node name="jonas_test" type="Node2D" unique_id=223619765]
 script = ExtResource("1_lv1eq")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1198948396]
+anchor_mode = 0
+
 [node name="TileMap" type="Node" parent="." unique_id=701255276]
 
 [node name="Background" type="TileMapLayer" parent="TileMap" unique_id=219264344]

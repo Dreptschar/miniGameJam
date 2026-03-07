@@ -23,7 +23,7 @@ var _is_game_over_visible: bool = false
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	if fade_rect:
 		fade_rect.color = Color(0, 0, 0, 0)
 		fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -139,11 +139,10 @@ func _pulse_camera() -> void:
 	if camera == null or beat_zoom_amount <= 0.0:
 		return
 
-	_base_camera_zoom = camera.zoom if _camera_tween == null else _base_camera_zoom
-
 	if _camera_tween != null:
 		_camera_tween.kill()
 
+	_base_camera_zoom = camera.zoom if _camera_tween == null else _base_camera_zoom
 	var hit_zoom := _base_camera_zoom * (1.0 - beat_zoom_amount)
 	_camera_tween = create_tween()
 	_camera_tween.tween_property(camera, "zoom", hit_zoom, beat_zoom_in_time)
