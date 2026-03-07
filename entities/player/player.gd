@@ -18,6 +18,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D2
 
 const FLOATING_NOTE_SCENE := preload("res://entities/player/vfx/floating_note.tscn")
 
@@ -43,6 +44,7 @@ func _physics_process(delta: float) -> void:
 	_handle_horizontal_movement(delta)
 	_update_animation()
 	move_and_slide()
+	_check_crush_death()
 	_handle_note_input()
 
 
@@ -155,6 +157,60 @@ func _spawn_floating_note(note_color: NoteColor) -> void:
 	get_tree().current_scene.add_child(floating_note)
 	floating_note.global_position = global_position + Vector2(0, -16)
 	floating_note.play(note_color)
+
+
+func _check_crush_death() -> void:
+	var player_shape := collision_shape.shape as RectangleShape2D
+	if player_shape == null:
+		return
+
+	var query_shape := RectangleShape2D.new()
+	query_shape.size = player_shape.size + Vector2(6.0, 6.0)
+
+	var platform_query := PhysicsShapeQueryParameters2D.new()
+	platform_query.shape = query_shape
+	platform_query.transform = Transform2D(0.0, global_position + collision_shape.position)
+	platform_query.collide_with_areas = false
+	platform_query.collide_with_bodies = true
+	platform_query.exclude = [self]
+
+	var space_state := get_world_2d().direct_space_state
+	var results := space_state.intersect_shape(platform_query, 8)
+	for result in results:
+		var collider: Object = result.get("collider")
+		if not collider is MovingPlatform:
+			continue
+		if not collider.is_moving_towards(global_position):
+			continue
+		if _is_blocked_in_direction(player_shape.size, collider.get_current_motion(), [self, collider]):
+			die()
+			return
+
+
+func _is_blocked_in_direction(player_size: Vector2, motion: Vector2, exclude: Array) -> bool:
+	if motion == Vector2.ZERO:
+		return false
+
+	var direction := motion.normalized()
+	var query_shape := RectangleShape2D.new()
+	var query_offset := Vector2.ZERO
+
+	if abs(direction.x) >= abs(direction.y):
+		query_shape.size = Vector2(4.0, max(player_size.y - 2.0, 1.0))
+		query_offset = Vector2(sign(direction.x) * (player_size.x * 0.5 + 3.0), 0.0)
+	else:
+		query_shape.size = Vector2(max(player_size.x - 2.0, 1.0), 4.0)
+		query_offset = Vector2(0.0, sign(direction.y) * (player_size.y * 0.5 + 3.0))
+
+	var block_query := PhysicsShapeQueryParameters2D.new()
+	block_query.shape = query_shape
+	block_query.transform = Transform2D(0.0, global_position + collision_shape.position + query_offset)
+	block_query.collide_with_areas = false
+	block_query.collide_with_bodies = true
+	block_query.exclude = exclude
+
+	var hits := get_world_2d().direct_space_state.intersect_shape(block_query, 8)
+	return not hits.is_empty()
 
 
 func die() -> void:

@@ -51,6 +51,7 @@ var _end: Vector2
 var _current_step: int = 0
 var _direction: int = 1
 var _move_tween: Tween
+var _current_motion: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	set_notify_transform(true)
@@ -125,12 +126,14 @@ func _on_beat_hit(_index: int) -> void:
 	if _move_tween != null:
 		_move_tween.kill()
 
+	_current_motion = next_position - global_position
 	_move_tween = create_tween()
 	_move_tween.tween_property(self, "global_position", next_position, snap_duration)
 	_move_tween.finished.connect(_on_move_finished)
 
 func _on_move_finished() -> void:
 	_move_tween = null
+	_current_motion = Vector2.ZERO
 
 func _get_step_position() -> Vector2:
 	var t := float(_current_step) / float(steps_per_leg)
@@ -159,3 +162,19 @@ func _get_effective_move_offset() -> Vector2:
 			return Vector2(0.0, travel_distance)
 		_:
 			return move_offset
+
+
+func is_moving_towards(point: Vector2) -> bool:
+	if _current_motion == Vector2.ZERO:
+		return false
+
+	var to_point := point - global_position
+	return _current_motion.normalized().dot(to_point.normalized()) > 0.35
+
+
+func is_moving_down() -> bool:
+	return _current_motion.y > 0.0
+
+
+func get_current_motion() -> Vector2:
+	return _current_motion
