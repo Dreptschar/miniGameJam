@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://8jd4qyly8k8p"]
 
-[ext_resource type="Script" uid="uid://noonh2erg80m" path="res://entities/environment/spikes.gd" id="1_1q6xq"]
+[ext_resource type="Script" path="res://entities/environment/spikes.gd" id="1_1q6xq"]
 [ext_resource type="Texture2D" uid="uid://ce0bc6gkxopha" path="res://assets/spike.png" id="2_pkgnh"]
 
 [node name="Spikes" type="Area2D" unique_id=1229437094]
 script = ExtResource("1_1q6xq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1760654779]
+position = Vector2(8.783485, -7.972702)
 texture = ExtResource("2_pkgnh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=538908483]
+position = Vector2(8.783485, -8.128998)
 polygon = PackedVector2Array(0, -9, 2, -8, 9, 8, -9, 8, -2, -8, -2, -8)
