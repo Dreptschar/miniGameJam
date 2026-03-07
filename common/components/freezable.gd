@@ -112,7 +112,7 @@ func get_tint() -> Color:
 	return Color(sum.r / count, sum.g / count, sum.b / count, 1.0)
 
 
-func get_display_colors(max_colors: int = 4) -> Array[Color]:
+func get_stripe_colors(max_colors: int = 4) -> Array[Color]:
 	var colors: Array[Color] = []
 	if max_colors <= 0:
 		return colors
@@ -130,7 +130,7 @@ func get_display_colors(max_colors: int = 4) -> Array[Color]:
 	return colors
 
 
-func get_display_frozen_mask(max_colors: int = 4) -> PackedFloat32Array:
+func get_stripe_frozen_mask(max_colors: int = 4) -> PackedFloat32Array:
 	var frozen_mask := PackedFloat32Array()
 	if max_colors <= 0:
 		return frozen_mask
@@ -148,7 +148,7 @@ func get_display_frozen_mask(max_colors: int = 4) -> PackedFloat32Array:
 	return frozen_mask
 
 
-func ensure_visual_shader_material(sprite: Sprite2D, shader: Shader, current_material: ShaderMaterial) -> ShaderMaterial:
+func get_or_create_freeze_shader_material(sprite: Sprite2D, shader: Shader, current_material: ShaderMaterial) -> ShaderMaterial:
 	if sprite == null:
 		return current_material
 	if current_material != null:
@@ -160,7 +160,7 @@ func ensure_visual_shader_material(sprite: Sprite2D, shader: Shader, current_mat
 	return material
 
 
-func apply_visual_shader_state(
+func apply_freeze_shader_state(
 	sprite: Sprite2D,
 	material: ShaderMaterial,
 	partial_freeze_amount: float,
@@ -174,15 +174,15 @@ func apply_visual_shader_state(
 		return
 
 	sprite.modulate = Color.WHITE
-	_apply_stripe_shader_state(material)
+	_apply_stripe_shader_parameters(material)
 	material.set_shader_parameter("freeze_tint", freeze_tint)
 	material.set_shader_parameter("darken_strength", darken_strength)
 	material.set_shader_parameter("desaturate_strength", desaturate_strength)
 	material.set_shader_parameter("accent_strength", accent_strength)
-	material.set_shader_parameter("freeze_amount", get_freeze_visual_amount(partial_freeze_amount, full_freeze_amount))
+	material.set_shader_parameter("freeze_amount", get_freeze_shader_amount(partial_freeze_amount, full_freeze_amount))
 
 
-func get_freeze_visual_amount(partial_freeze_amount: float, full_freeze_amount: float) -> float:
+func get_freeze_shader_amount(partial_freeze_amount: float, full_freeze_amount: float) -> float:
 	if are_all_colors_frozen():
 		return full_freeze_amount
 	if is_partially_frozen():
@@ -190,20 +190,20 @@ func get_freeze_visual_amount(partial_freeze_amount: float, full_freeze_amount: 
 	return 0.0
 
 
-func _apply_stripe_shader_state(material: ShaderMaterial) -> void:
-	var display_colors := get_display_colors(MAX_DISPLAY_COLORS)
+func _apply_stripe_shader_parameters(material: ShaderMaterial) -> void:
+	var stripe_colors := get_stripe_colors(MAX_DISPLAY_COLORS)
 	var shader_colors := PackedColorArray()
-	var frozen_mask := get_display_frozen_mask(MAX_DISPLAY_COLORS)
-	for color in display_colors:
+	var stripe_frozen_mask := get_stripe_frozen_mask(MAX_DISPLAY_COLORS)
+	for color in stripe_colors:
 		shader_colors.append(color)
 	while shader_colors.size() < MAX_DISPLAY_COLORS:
 		shader_colors.append(shader_colors[shader_colors.size() - 1])
-	while frozen_mask.size() < MAX_DISPLAY_COLORS:
-		frozen_mask.append(0.0)
+	while stripe_frozen_mask.size() < MAX_DISPLAY_COLORS:
+		stripe_frozen_mask.append(0.0)
 
-	material.set_shader_parameter("stripe_color_count", display_colors.size())
+	material.set_shader_parameter("stripe_color_count", stripe_colors.size())
 	material.set_shader_parameter("stripe_colors", shader_colors)
-	material.set_shader_parameter("stripe_frozen", frozen_mask)
+	material.set_shader_parameter("stripe_frozen", stripe_frozen_mask)
 
 func _on_color_frozen(color: NoteColor) -> void:
 	pass

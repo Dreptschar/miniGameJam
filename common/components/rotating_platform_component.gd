@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 	if _freezeable_component != null and _freezeable_component.are_all_colors_frozen() and _rotation_tween != null:
 		_rotation_tween.kill()
 		_rotation_tween = null
-	_update_state_visuals()
+	_sync_freeze_visual_state()
 
 
 func _resolve_nodes() -> void:
@@ -100,8 +100,8 @@ func _apply_configuration() -> void:
 		_freezeable_component.set_freeze_colors(_get_freeze_colors())
 
 	_update_visuals()
-	_update_shader_params()
-	_update_state_visuals()
+	_sync_freeze_shader()
+	_sync_freeze_visual_state()
 
 
 func _update_visuals() -> void:
@@ -118,7 +118,7 @@ func _update_visuals() -> void:
 		if tex_size.x != 0.0 and tex_size.y != 0.0:
 			_sprite2d.scale = _get_size() / tex_size
 
-	_ensure_shader_material()
+	_ensure_freeze_shader_material()
 
 
 func _ensure_unique_shape() -> void:
@@ -134,11 +134,11 @@ func _get_effective_rotation_offset() -> float:
 	return _get_rotation_degrees_offset() * direction_sign
 
 
-func _update_state_visuals() -> void:
+func _sync_freeze_visual_state() -> void:
 	if _sprite2d == null or _freezeable_component == null:
 		return
 
-	_freezeable_component.apply_visual_shader_state(
+	_freezeable_component.apply_freeze_shader_state(
 		_sprite2d,
 		_freeze_material,
 		_get_partial_freeze_amount(),
@@ -150,18 +150,18 @@ func _update_state_visuals() -> void:
 	)
 
 
-func _ensure_shader_material() -> void:
+func _ensure_freeze_shader_material() -> void:
 	if _sprite2d == null:
 		return
-	_freeze_material = _freezeable_component.ensure_visual_shader_material(_sprite2d, FROZEN_PLATFORM_SHADER, _freeze_material)
-	_update_shader_params()
+	_freeze_material = _freezeable_component.get_or_create_freeze_shader_material(_sprite2d, FROZEN_PLATFORM_SHADER, _freeze_material)
+	_sync_freeze_shader()
 
 
-func _update_shader_params() -> void:
+func _sync_freeze_shader() -> void:
 	if _freeze_material == null:
 		return
 
-	_freezeable_component.apply_visual_shader_state(
+	_freezeable_component.apply_freeze_shader_state(
 		_sprite2d,
 		_freeze_material,
 		_get_partial_freeze_amount(),

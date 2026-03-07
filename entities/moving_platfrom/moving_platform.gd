@@ -46,27 +46,27 @@ enum PathMode {
 @export_range(0.0, 1.0, 0.01) var partial_freeze_amount: float = 0.45:
 	set(value):
 		partial_freeze_amount = clampf(value, 0.0, 1.0)
-		_update_state_visuals()
+		_sync_freeze_visual_state()
 @export var freeze_shader_tint: Color = Color(0.35, 0.35, 0.38, 1.0):
 	set(value):
 		freeze_shader_tint = value
-		_update_shader_params()
+		_sync_freeze_shader()
 @export_range(0.0, 1.0, 0.01) var freeze_darken_strength: float = 0.28:
 	set(value):
 		freeze_darken_strength = clampf(value, 0.0, 1.0)
-		_update_shader_params()
+		_sync_freeze_shader()
 @export_range(0.0, 1.0, 0.01) var freeze_desaturate_strength: float = 0.22:
 	set(value):
 		freeze_desaturate_strength = clampf(value, 0.0, 1.0)
-		_update_shader_params()
+		_sync_freeze_shader()
 @export_range(0.0, 1.0, 0.01) var freeze_accent_strength: float = 0.18:
 	set(value):
 		freeze_accent_strength = clampf(value, 0.0, 1.0)
-		_update_shader_params()
+		_sync_freeze_shader()
 @export_range(0.0, 1.0, 0.01) var full_freeze_amount: float = 1.0:
 	set(value):
 		full_freeze_amount = clampf(value, 0.0, 1.0)
-		_update_state_visuals()
+		_sync_freeze_visual_state()
 @export_range(0.0, 12.0, 0.1) var frozen_beat_shake_distance: float = 2.0
 @export_range(0.01, 0.3, 0.01) var frozen_beat_shake_duration: float = 0.12
 
@@ -105,7 +105,7 @@ func _process(_delta: float) -> void:
 	if freezeable_component.are_all_colors_frozen() and _move_tween != null:
 		_move_tween.kill()
 		_move_tween = null
-	_update_state_visuals()
+	_sync_freeze_visual_state()
 
 func _draw() -> void:
 	if not Engine.is_editor_hint():
@@ -131,7 +131,7 @@ func _update_visuals() -> void:
 
 	var tex_size := sprite2d.texture.get_size()
 	sprite2d.scale = size / tex_size
-	_ensure_shader_material()
+	_ensure_freeze_shader_material()
 
 func _ensure_unique_shape() -> void:
 	if collision_shape == null or collision_shape.shape == null:
@@ -188,8 +188,8 @@ func _apply_configuration() -> void:
 	freezeable_component.combo_window_beats = combo_window_beats
 	freezeable_component.set_freeze_colors(freeze_colors)
 	_update_visuals()
-	_update_shader_params()
-	_update_state_visuals()
+	_sync_freeze_shader()
+	_sync_freeze_visual_state()
 
 func _get_effective_move_offset() -> Vector2:
 	match path_mode:
@@ -217,11 +217,11 @@ func get_current_motion() -> Vector2:
 	return _current_motion
 
 
-func _update_state_visuals() -> void:
+func _sync_freeze_visual_state() -> void:
 	if sprite2d == null or freezeable_component == null:
 		return
 
-	freezeable_component.apply_visual_shader_state(
+	freezeable_component.apply_freeze_shader_state(
 		sprite2d,
 		_freeze_material,
 		partial_freeze_amount,
@@ -258,18 +258,18 @@ func _on_shake_finished() -> void:
 		sprite2d.position = _base_sprite_position
 
 
-func _ensure_shader_material() -> void:
+func _ensure_freeze_shader_material() -> void:
 	if sprite2d == null:
 		return
-	_freeze_material = freezeable_component.ensure_visual_shader_material(sprite2d, FROZEN_PLATFORM_SHADER, _freeze_material)
-	_update_shader_params()
+	_freeze_material = freezeable_component.get_or_create_freeze_shader_material(sprite2d, FROZEN_PLATFORM_SHADER, _freeze_material)
+	_sync_freeze_shader()
 
 
-func _update_shader_params() -> void:
+func _sync_freeze_shader() -> void:
 	if _freeze_material == null:
 		return
 
-	freezeable_component.apply_visual_shader_state(
+	freezeable_component.apply_freeze_shader_state(
 		sprite2d,
 		_freeze_material,
 		partial_freeze_amount,
