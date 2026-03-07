@@ -129,7 +129,7 @@ tile_set = SubResource("TileSet_eigce")
 position = Vector2(106, 295)
 
 [node name="MovingPlatform" parent="." unique_id=300887378 instance=ExtResource("1_a7hed")]
-position = Vector2(51, 309)
+position = Vector2(50, 308)
 path_mode = 1
 freeze_colors = Array[ExtResource("5_ugc47")]([ExtResource("6_eigce")])
 size = Vector2(60, 16)

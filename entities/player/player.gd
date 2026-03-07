@@ -164,27 +164,63 @@ func _check_crush_death() -> void:
 	if player_shape == null:
 		return
 
-	var query_shape := RectangleShape2D.new()
-	query_shape.size = player_shape.size + Vector2(6.0, 6.0)
-
-	var platform_query := PhysicsShapeQueryParameters2D.new()
-	platform_query.shape = query_shape
-	platform_query.transform = Transform2D(0.0, global_position + collision_shape.position)
-	platform_query.collide_with_areas = false
-	platform_query.collide_with_bodies = true
-	platform_query.exclude = [self]
-
-	var space_state := get_world_2d().direct_space_state
-	var results := space_state.intersect_shape(platform_query, 8)
-	for result in results:
-		var collider: Object = result.get("collider")
-		if not collider is MovingPlatform:
-			continue
-		if not collider.is_moving_towards(global_position):
-			continue
-		if _is_blocked_in_direction(player_shape.size, collider.get_current_motion(), [self, collider]):
+	var nearby_platforms := _find_nearby_moving_platforms(player_shape.size)
+	for platform in nearby_platforms:
+		var motion: Vector2 = platform.get_current_motion()
+		if _has_platform_on_push_side(player_shape.size, motion, platform) and _is_blocked_in_direction(player_shape.size, motion, [self, platform]):
 			die()
 			return
+
+
+func _find_nearby_moving_platforms(player_size: Vector2) -> Array[MovingPlatform]:
+	var query_shape := RectangleShape2D.new()
+	query_shape.size = player_size + Vector2(8.0, 8.0)
+
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = query_shape
+	query.transform = Transform2D(0.0, global_position + collision_shape.position)
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	query.exclude = [self]
+
+	var platforms: Array[MovingPlatform] = []
+	var hits := get_world_2d().direct_space_state.intersect_shape(query, 16)
+	for hit in hits:
+		var collider: Object = hit.get("collider")
+		if collider is MovingPlatform and collider.get_current_motion() != Vector2.ZERO:
+			platforms.append(collider)
+
+	return platforms
+
+
+func _has_platform_on_push_side(player_size: Vector2, motion: Vector2, platform: MovingPlatform) -> bool:
+	if motion == Vector2.ZERO:
+		return false
+
+	var query_shape := RectangleShape2D.new()
+	var query_offset := Vector2.ZERO
+
+	if abs(motion.x) >= abs(motion.y):
+		query_shape.size = Vector2(4.0, max(player_size.y - 2.0, 1.0))
+		query_offset = Vector2(-signf(motion.x) * (player_size.x * 0.5 + 3.0), 0.0)
+	else:
+		query_shape.size = Vector2(max(player_size.x - 2.0, 1.0), 4.0)
+		query_offset = Vector2(0.0, -signf(motion.y) * (player_size.y * 0.5 + 3.0))
+
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = query_shape
+	query.transform = Transform2D(0.0, global_position + collision_shape.position + query_offset)
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	query.exclude = [self]
+
+	var hits := get_world_2d().direct_space_state.intersect_shape(query, 8)
+	for hit in hits:
+		var collider: Object = hit.get("collider")
+		if collider == platform:
+			return true
+
+	return false
 
 
 func _is_blocked_in_direction(player_size: Vector2, motion: Vector2, exclude: Array) -> bool:
