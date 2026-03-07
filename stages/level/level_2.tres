@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("1_j2l8c")
 scene = ExtResource("2_v1m5z")
-bpm = 80.0
+bpm = 70.0

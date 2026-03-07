@@ -3,13 +3,16 @@
 [ext_resource type="Script" uid="uid://dsmnmnct1hebt" path="res://common/manager/level_manager.gd" id="1_nghu8"]
 [ext_resource type="Resource" path="res://stages/level/level_1.tres" id="2_k0fef"]
 [ext_resource type="Resource" path="res://stages/jonas_test.tres" id="2_xm4af"]
-[ext_resource type="Resource" path="res://stages/level/level_2.tres" id="3_ms8xw"]
+[ext_resource type="Resource" uid="uid://npqoy7v5h40h" path="res://stages/level/level_2.tres" id="3_ms8xw"]
 [ext_resource type="PackedScene" uid="uid://dfq6muh8myw6" path="res://common/manager/game_over_overlay.tscn" id="4_bm3m2"]
-[ext_resource type="Resource" path="res://stages/level/level_3.tres" id="5_aaacw"]
+[ext_resource type="Resource" uid="uid://m3lu4kfyx5iu" path="res://stages/level/level_3.tres" id="5_aaacw"]
+[ext_resource type="Resource" uid="uid://bim2hb2agd5jv" path="res://stages/level/level_4.tres" id="6_qn7ec"]
+[ext_resource type="Resource" uid="uid://c31dcx2buxuns" path="res://stages/level/level_5.tres" id="7_r8r52"]
+[ext_resource type="Resource" uid="uid://chehseayda28t" path="res://stages/level/level_6.tres" id="8_i85aw"]
 
 [node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
 script = ExtResource("1_nghu8")
-levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw")])
+levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw"), ExtResource("6_qn7ec"), ExtResource("7_r8r52"), ExtResource("8_i85aw")])
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
 anchors_preset = 15

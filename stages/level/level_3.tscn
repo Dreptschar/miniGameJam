@@ -152,13 +152,13 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6d0mb")
 sources/2 = SubResource("TileSetAtlasSource_1j3pk")
 
-[node name="Level1" type="Node2D" unique_id=1105359909]
+[node name="Level3" type="Node2D" unique_id=1105359909]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
 anchor_mode = 0
 
 [node name="Goal" parent="." unique_id=976189546 instance=ExtResource("2_7thw1")]
-position = Vector2(624, 112)
+position = Vector2(624, 96)
 
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("1_1j3pk")]
 position = Vector2(15.453453, 310.26938)

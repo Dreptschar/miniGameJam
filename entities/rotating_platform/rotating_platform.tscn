@@ -1,33 +1,23 @@
 [gd_scene format=3 uid="uid://c0w4p0jpannt3"]
 
 [ext_resource type="Script" uid="uid://bjjdjnfo4ywbv" path="res://common/components/rotating_platform_component.gd" id="1_n2u7a"]
-[ext_resource type="Shader" uid="uid://dd0d4xxg3gqxs" path="res://assets/shaders/frozen_platform.gdshader" id="1_ouu2b"]
-[ext_resource type="Texture2D" uid="uid://b6mrwaxvncwgc" path="res://assets/prototype-textures/PNG/Light/texture_01.png" id="2_k6w4x"]
+[ext_resource type="Texture2D" uid="uid://cbcr7lhnt2274" path="res://assets/tilesets/circle_black.png" id="2_ouu2b"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="3_m4h9q"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouu2b"]
-shader = ExtResource("1_ouu2b")
-shader_parameter/freeze_tint = Color(0.35, 0.35, 0.38, 1)
-shader_parameter/freeze_amount = 0.0
-shader_parameter/darken_strength = 0.28
-shader_parameter/desaturate_strength = 0.22
-shader_parameter/accent_strength = 0.18
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouu2b"]
-size = Vector2(48, 16)
 
 [node name="RotatingPlatform" type="AnimatableBody2D" unique_id=1681768955]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=690062524]
-material = SubResource("ShaderMaterial_ouu2b")
-scale = Vector2(0.046875, 0.015625)
-texture = ExtResource("2_k6w4x")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1160455893]
+scale = Vector2(3.9682522, 4.0010705)
+polygon = PackedVector2Array(0, -16, 0, -16, -11.48201, -11.047026, -15.850636, -0.2294693, -12.036755, 11.905605, -0.17905426, 15.927517, 12.025368, 12.044292, 16, 0, 0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=73804242]
-shape = SubResource("RectangleShape2D_ouu2b")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=690062524]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("2_ouu2b")
 
 [node name="FreezableComponent" parent="." unique_id=1393634516 instance=ExtResource("3_m4h9q")]
 
 [node name="RotatingPlatformComponent" type="Node" parent="." unique_id=1605230816]
 script = ExtResource("1_n2u7a")
-rotation_degrees_offset = 180.0
+size = Vector2(128, 128)
+collision_shape_path = NodePath("")
