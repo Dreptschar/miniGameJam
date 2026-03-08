@@ -8,7 +8,7 @@ signal beat_hit(index: int)
 @export var freeze_sound: AudioStream = preload("res://assets/audio/music/freeze.wav")
 @export_range(-40.0, 6.0, 0.5) var beat_volume_db: float = -12.0
 @export var music_stream: AudioStream
-@export_range(-40.0, 6.0, 0.5) var music_volume_db: float = -12.0
+@export_range(-40.0, 6.0, 0.5) var music_volume_db: float = -1.0
 @export var use_music_clock: bool = true
 @export var music_autoplay: bool = true
 @export_range(0.0, 8.0, 0.001) var music_start_offset_sec: float = 0.0
