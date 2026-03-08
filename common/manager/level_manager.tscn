@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://5wbjtabtvo3w"]
 
 [ext_resource type="Script" uid="uid://dsmnmnct1hebt" path="res://common/manager/level_manager.gd" id="1_nghu8"]
-[ext_resource type="Resource" path="res://stages/level/level_1.tres" id="2_k0fef"]
+[ext_resource type="Resource" uid="uid://c8xmpnpubcj7m" path="res://stages/level/level_1.tres" id="2_k0fef"]
 [ext_resource type="Resource" path="res://stages/jonas_test.tres" id="2_xm4af"]
 [ext_resource type="Resource" uid="uid://npqoy7v5h40h" path="res://stages/level/level_2.tres" id="3_ms8xw"]
 [ext_resource type="PackedScene" uid="uid://dfq6muh8myw6" path="res://common/manager/game_over_overlay.tscn" id="4_bm3m2"]
 [ext_resource type="Resource" uid="uid://m3lu4kfyx5iu" path="res://stages/level/level_3.tres" id="5_aaacw"]
 [ext_resource type="Resource" uid="uid://bim2hb2agd5jv" path="res://stages/level/level_4.tres" id="6_qn7ec"]
 [ext_resource type="Resource" uid="uid://c31dcx2buxuns" path="res://stages/level/level_5.tres" id="7_r8r52"]
-[ext_resource type="Resource" uid="uid://cm42lw3hp2kli" path="res://stages/level/level_7.tres" id="9_i85aw"]
+[ext_resource type="Resource" uid="uid://cm42lw3hp2kli" path="res://stages/level/level_6.tres" id="9_i85aw"]
 [ext_resource type="Resource" uid="uid://djafdjxl0qd3k" path="res://stages/level/level_end_screen.tres" id="10_17abn"]
 [ext_resource type="Shader" uid="uid://bm7pt44mo5h12" path="res://assets/shaders/glow_grain_overlay.gdshader" id="11_s0w3m"]
 
