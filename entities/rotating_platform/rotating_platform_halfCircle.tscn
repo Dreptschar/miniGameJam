@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b8o6nypypme4j" path="res://entities/rotating_platform/rotating_platform.gd" id="1_rstc0"]
 [ext_resource type="Shader" uid="uid://dd0d4xxg3gqxs" path="res://assets/shaders/frozen_platform.gdshader" id="2_7a2nm"]
-[ext_resource type="Texture2D" uid="uid://6fgukttfko3n" path="res://assets/tilesets/half_circle_white.png" id="3_rstc0"]
+[ext_resource type="Texture2D" uid="uid://bv6l7yv80q65r" path="res://assets/circle_half.svg" id="3_rstc0"]
 [ext_resource type="PackedScene" uid="uid://cfn6h5ewc7cwa" path="res://common/components/freezable_component.tscn" id="4_wa0r5"]
 [ext_resource type="Script" uid="uid://bjjdjnfo4ywbv" path="res://common/components/rotating_platform_component.gd" id="5_mohol"]
 
@@ -21,7 +21,7 @@ shader_parameter/stripe_frozen = PackedFloat32Array(0, 0, 0, 0)
 script = ExtResource("1_rstc0")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1160455893]
-scale = Vector2(4.0187583, 4.009081)
+scale = Vector2(4.009357, 4.004535)
 polygon = PackedVector2Array(0, -16, 0, -16, -6.5456424, -13.934237, -11.48201, -11.047026, -14.3867655, -6.2023797, -15.925318, 0, 0, 0, 0, 15.963759, 5.827925, 14.026314, 10.768286, 11.194296, 13.89567, 6.699032, 16, 0, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=690062524]
