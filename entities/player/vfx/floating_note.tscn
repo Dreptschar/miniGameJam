@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://66v303ak4n3o" path="res://assets/vfx/note3.png" id="4_mnh1l"]
 
 [node name="FloatingNote" type="Sprite2D" unique_id=1162214133]
+z_index = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_feavg")
 rise_distance = 80.0
 notesTextures = Array[Texture2D]([ExtResource("2_u1wsu"), ExtResource("3_kqiyj"), ExtResource("4_mnh1l")])

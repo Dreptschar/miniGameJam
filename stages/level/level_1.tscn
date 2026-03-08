@@ -174,9 +174,6 @@ sources/2 = SubResource("TileSetAtlasSource_yd7fo")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1468515166]
 environment = SubResource("Environment_1skeo")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
-anchor_mode = 0
-
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("2_b1j0g")]
 position = Vector2(15.453453, 310.26938)
 
