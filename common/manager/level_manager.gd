@@ -188,7 +188,10 @@ func _apply_level_bpm(level: Resource) -> void:
 	if level == null or BeatManger == null:
 		return
 
+	BeatManger.use_music_clock = _get_level_use_music_clock(level)
+	BeatManger.music_start_offset_sec = _get_level_music_start_offset_sec(level)
 	BeatManger.set_bpm(_get_level_bpm(level))
+	BeatManger.set_music_stream(_get_level_music_stream(level), true, _get_level_music_seek_sec(level))
 
 
 func _get_level_scene(level: Resource) -> PackedScene:
@@ -207,3 +210,43 @@ func _get_level_bpm(level: Resource) -> float:
 		return 60.0
 
 	return max(float(bpm_value), 1.0)
+
+
+func _get_level_music_stream(level: Resource) -> AudioStream:
+	if level == null:
+		return null
+
+	return level.get("music_stream") as AudioStream
+
+
+func _get_level_use_music_clock(level: Resource) -> bool:
+	if level == null:
+		return false
+
+	var value: Variant = level.get("use_music_clock")
+	if value == null:
+		return false
+
+	return bool(value)
+
+
+func _get_level_music_start_offset_sec(level: Resource) -> float:
+	if level == null:
+		return 0.0
+
+	var value: Variant = level.get("music_start_offset_sec")
+	if value == null:
+		return 0.0
+
+	return max(float(value), 0.0)
+
+
+func _get_level_music_seek_sec(level: Resource) -> float:
+	if level == null:
+		return 0.0
+
+	var value: Variant = level.get("music_seek_sec")
+	if value == null:
+		return 0.0
+
+	return max(float(value), 0.0)
