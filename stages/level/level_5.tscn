@@ -19,7 +19,7 @@ tonemap_mode = 1
 tonemap_exposure = 1.09
 glow_enabled = true
 glow_intensity = 8.0
-glow_strength = 0.46
+glow_strength = 0.89
 glow_bloom = 0.04
 glow_hdr_threshold = 1.13
 glow_hdr_scale = 1.44
@@ -184,7 +184,7 @@ anchor_mode = 0
 position = Vector2(624, 160)
 
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("2_ydije")]
-position = Vector2(20, 58)
+position = Vector2(24, 56)
 
 [node name="TileMap2" type="Node" parent="." unique_id=1235865286]
 
@@ -228,10 +228,9 @@ freeze_colors = Array[ExtResource("6_nb6hf")]([ExtResource("8_qut0c")])
 
 [node name="RotatingPlatform6" parent="." unique_id=1126648128 instance=ExtResource("11_ydije")]
 z_index = -1
-position = Vector2(384.00003, 128)
-rotation = 1.5707964
+position = Vector2(448, 128)
+rotation = 4.712389
 scale = Vector2(1.0066675, 1)
-rotation_direction = 1
 freeze_colors = Array[ExtResource("6_nb6hf")]([ExtResource("8_f6lq7")])
 
 [node name="RotatingPlatform5" parent="." unique_id=1495518185 instance=ExtResource("11_ydije")]

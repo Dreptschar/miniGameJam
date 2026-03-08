@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="2_ibeds"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_t8lg8"]
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="3_l2glw"]
+[ext_resource type="Texture2D" uid="uid://dmcqk2bi2rfpw" path="res://assets/levels/Level02.png" id="3_sw6jt"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="4_3dpw7"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="5_sw6jt"]
 [ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="6_yrmjq"]
@@ -10,14 +11,18 @@
 [ext_resource type="Resource" uid="uid://kintqv715xh5" path="res://entities/note_colors/green_e.tres" id="8_l2glw"]
 [ext_resource type="FontFile" uid="uid://dh7ygjrfmetnw" path="res://assets/Big Bad Blocks.otf" id="8_sw6jt"]
 
-[sub_resource type="Environment" id="Environment_3dpw7"]
+[sub_resource type="Environment" id="Environment_sw6jt"]
 background_mode = 3
 tonemap_mode = 1
-tonemap_exposure = 0.72
+tonemap_exposure = 1.09
 glow_enabled = true
-glow_intensity = 1.72
-glow_strength = 0.45
-glow_bloom = 0.4
+glow_intensity = 8.0
+glow_strength = 0.89
+glow_bloom = 0.04
+glow_hdr_threshold = 1.13
+glow_hdr_scale = 1.44
+glow_hdr_luminance_cap = 43.41
+glow_map_strength = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2glw"]
 texture = ExtResource("3_l2glw")
@@ -165,10 +170,10 @@ sources/2 = SubResource("TileSetAtlasSource_3dpw7")
 
 [node name="Level2" type="Node2D" unique_id=1105359909]
 
-[node name="Look" type="Node" parent="." unique_id=1714177341]
+[node name="Look" type="Node" parent="." unique_id=156685355]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1801450443]
-environment = SubResource("Environment_3dpw7")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=252264042]
+environment = SubResource("Environment_sw6jt")
 
 [node name="Player2" parent="." unique_id=1552096183 instance=ExtResource("2_t8lg8")]
 position = Vector2(15.453453, 310.26938)
@@ -177,6 +182,13 @@ position = Vector2(15.453453, 310.26938)
 position = Vector2(624, 32)
 
 [node name="TileMap" type="Node" parent="." unique_id=1073862486]
+
+[node name="TextureRect" type="TextureRect" parent="TileMap" unique_id=1908531370]
+z_index = 1
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("3_sw6jt")
+expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap" unique_id=385323486]
 z_index = -1

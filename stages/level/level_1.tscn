@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://xlgvdeq0tsma"]
 
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_b1j0g"]
+[ext_resource type="Texture2D" uid="uid://co1uajgbaj703" path="res://assets/levels/Level01.png" id="3_1skeo"]
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="3_o304y"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="4_1c2oi"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="4_yd7fo"]
@@ -9,14 +10,18 @@
 [ext_resource type="FontFile" uid="uid://dh7ygjrfmetnw" path="res://assets/Big Bad Blocks.otf" id="8_1skeo"]
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="8_yd7fo"]
 
-[sub_resource type="Environment" id="Environment_yd7fo"]
+[sub_resource type="Environment" id="Environment_1skeo"]
 background_mode = 3
 tonemap_mode = 1
-tonemap_exposure = 0.72
+tonemap_exposure = 1.09
 glow_enabled = true
-glow_intensity = 1.72
-glow_strength = 0.45
-glow_bloom = 0.4
+glow_intensity = 8.0
+glow_strength = 0.89
+glow_bloom = 0.04
+glow_hdr_threshold = 1.13
+glow_hdr_scale = 1.44
+glow_hdr_luminance_cap = 43.41
+glow_map_strength = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7os5w"]
 texture = ExtResource("8_yd7fo")
@@ -164,10 +169,10 @@ sources/2 = SubResource("TileSetAtlasSource_yd7fo")
 
 [node name="Level3" type="Node2D" unique_id=1105359909]
 
-[node name="Look" type="Node" parent="." unique_id=757175144]
+[node name="Look" type="Node" parent="." unique_id=1494690831]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=177939091]
-environment = SubResource("Environment_yd7fo")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1468515166]
+environment = SubResource("Environment_1skeo")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
 anchor_mode = 0
@@ -179,6 +184,13 @@ position = Vector2(15.453453, 310.26938)
 position = Vector2(624, 288)
 
 [node name="TileMap" type="Node" parent="." unique_id=1510684025]
+
+[node name="TextureRect" type="TextureRect" parent="TileMap" unique_id=2093297470]
+z_index = 1
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("3_1skeo")
+expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap" unique_id=105139101]
 z_index = -1
@@ -214,24 +226,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="." unique_id=561399462]
-offset_left = 64.0
+z_index = 2
+offset_left = 161.0
 offset_top = 48.0
-offset_right = 576.0
-offset_bottom = 96.0
-theme_override_colors/font_color = Color(0.82617754, 0.53930527, 0.558735, 1)
+offset_right = 480.0
+offset_bottom = 139.0
+theme_override_colors/font_color = Color(0.81960785, 0.18039216, 0.16078432, 1)
 theme_override_fonts/font = ExtResource("8_1skeo")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 26
 text = "FROZEN BEATS
 "
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="." unique_id=186791384]
+z_index = 2
 offset_left = 64.0
 offset_top = 112.0
 offset_right = 576.0
 offset_bottom = 160.0
 pivot_offset = Vector2(240, 48)
-theme_override_colors/font_color = Color(0.827451, 0.5411765, 0.5568628, 1)
+theme_override_colors/font_color = Color(0.81960785, 0.18039216, 0.16078432, 1)
 theme_override_fonts/font = ExtResource("8_1skeo")
 theme_override_font_sizes/font_size = 16
 text = "ARROW KEYS TO MOVE"

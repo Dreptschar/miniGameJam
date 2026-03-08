@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="1_id3xd"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_8stle"]
+[ext_resource type="Texture2D" uid="uid://dt2vq4ke842nx" path="res://assets/levels/Level04.png" id="3_era0r"]
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="3_eukic"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="4_era0r"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="5_0c34q"]
@@ -10,14 +11,18 @@
 [ext_resource type="Resource" uid="uid://kintqv715xh5" path="res://entities/note_colors/green_e.tres" id="8_era0r"]
 [ext_resource type="Resource" uid="uid://1tqo6ho5xbsa" path="res://entities/note_colors/red_d.tres" id="8_eukic"]
 
-[sub_resource type="Environment" id="Environment_eukic"]
+[sub_resource type="Environment" id="Environment_era0r"]
 background_mode = 3
 tonemap_mode = 1
-tonemap_exposure = 0.72
+tonemap_exposure = 1.09
 glow_enabled = true
-glow_intensity = 1.72
-glow_strength = 0.45
-glow_bloom = 0.4
+glow_intensity = 8.0
+glow_strength = 0.89
+glow_bloom = 0.04
+glow_hdr_threshold = 1.13
+glow_hdr_scale = 1.44
+glow_hdr_luminance_cap = 43.41
+glow_map_strength = 1.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_eukic"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -170,10 +175,10 @@ sources/2 = SubResource("TileSetAtlasSource_1j3pk")
 
 [node name="Level1" type="Node2D" unique_id=1105359909]
 
-[node name="Look" type="Node" parent="." unique_id=85285270]
+[node name="Look" type="Node" parent="." unique_id=1367181222]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1115137715]
-environment = SubResource("Environment_eukic")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=2064805414]
+environment = SubResource("Environment_era0r")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
 anchor_mode = 0
@@ -185,6 +190,14 @@ position = Vector2(624, 32)
 position = Vector2(16, 304)
 
 [node name="TileMap2" type="Node" parent="." unique_id=1235865286]
+
+[node name="TextureRect" type="TextureRect" parent="TileMap2" unique_id=863963218]
+z_index = 1
+offset_right = 640.0
+offset_bottom = 360.0
+pivot_offset = Vector2(381, 159)
+texture = ExtResource("3_era0r")
+expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap2" unique_id=1743662656]
 z_index = -1

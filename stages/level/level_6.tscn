@@ -9,17 +9,22 @@
 [ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="6_ljkod"]
 [ext_resource type="Resource" uid="uid://cnpaa2uqir1ha" path="res://entities/note_colors/blue_c.tres" id="7_43feq"]
 [ext_resource type="Resource" uid="uid://1tqo6ho5xbsa" path="res://entities/note_colors/red_d.tres" id="8_xj14m"]
+[ext_resource type="Texture2D" uid="uid://8d1u56bdhtur" path="res://assets/levels/Level06.png" id="9_m1ymq"]
 [ext_resource type="PackedScene" uid="uid://dk81ydc64d8ye" path="res://entities/rotating_platform/rotating_platform_halfCircle.tscn" id="11_8ee8y"]
 [ext_resource type="Resource" uid="uid://kintqv715xh5" path="res://entities/note_colors/green_e.tres" id="11_m1ymq"]
 
-[sub_resource type="Environment" id="Environment_caoq7"]
+[sub_resource type="Environment" id="Environment_m1ymq"]
 background_mode = 3
 tonemap_mode = 1
-tonemap_exposure = 0.72
+tonemap_exposure = 1.09
 glow_enabled = true
-glow_intensity = 1.72
-glow_strength = 0.45
-glow_bloom = 0.4
+glow_intensity = 8.0
+glow_strength = 0.89
+glow_bloom = 0.04
+glow_hdr_threshold = 1.13
+glow_hdr_scale = 1.44
+glow_hdr_luminance_cap = 43.41
+glow_map_strength = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6d0mb"]
 texture = ExtResource("3_m1ymq")
@@ -171,10 +176,10 @@ script = ExtResource("1_qd23e")
 min_bpm = 110.0
 max_bpm = 200.0
 
-[node name="Look" type="Node" parent="." unique_id=59391894]
+[node name="Look" type="Node" parent="." unique_id=2058875880]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=407502976]
-environment = SubResource("Environment_caoq7")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Look" unique_id=1238900400]
+environment = SubResource("Environment_m1ymq")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=735363343]
 anchor_mode = 0
@@ -498,6 +503,14 @@ freeze_colors = Array[ExtResource("6_ljkod")]([ExtResource("7_43feq")])
 size = Vector2(64, 32)
 
 [node name="TileMap2" type="Node" parent="." unique_id=1235865286]
+
+[node name="TextureRect" type="TextureRect" parent="TileMap2" unique_id=974324479]
+z_index = 2
+offset_top = 32.0
+offset_right = 640.0
+offset_bottom = 392.0
+texture = ExtResource("9_m1ymq")
+expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap2" unique_id=1743662656]
 z_index = -2

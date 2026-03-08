@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://m3lu4kfyx5iu" path="res://stages/level/level_3.tres" id="5_aaacw"]
 [ext_resource type="Resource" uid="uid://bim2hb2agd5jv" path="res://stages/level/level_4.tres" id="6_qn7ec"]
 [ext_resource type="Resource" uid="uid://c31dcx2buxuns" path="res://stages/level/level_5.tres" id="7_r8r52"]
-[ext_resource type="Resource" path="res://stages/level/level_7.tres" id="9_i85aw"]
+[ext_resource type="Resource" uid="uid://cm42lw3hp2kli" path="res://stages/level/level_6.tres" id="8_17abn"]
 [ext_resource type="Resource" uid="uid://djafdjxl0qd3k" path="res://stages/level/level_end_screen.tres" id="10_17abn"]
 [ext_resource type="Shader" uid="uid://bm7pt44mo5h12" path="res://assets/shaders/glow_grain_overlay.gdshader" id="11_s0w3m"]
 
@@ -23,7 +23,7 @@ shader_parameter/grain_tint = Color(0.9019608, 0.9607843, 0.8156863, 1)
 
 [node name="LevelManager" type="CanvasLayer" unique_id=1956668968]
 script = ExtResource("1_nghu8")
-levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw"), ExtResource("6_qn7ec"), ExtResource("7_r8r52"), ExtResource("9_i85aw"), ExtResource("10_17abn")])
+levels = Array[Resource]([ExtResource("2_xm4af"), ExtResource("2_k0fef"), ExtResource("3_ms8xw"), ExtResource("5_aaacw"), ExtResource("6_qn7ec"), ExtResource("7_r8r52"), ExtResource("8_17abn"), ExtResource("10_17abn")])
 
 [node name="FadeRect" type="ColorRect" parent="." unique_id=1264232047]
 anchors_preset = 15
@@ -38,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(320, 190)
 
 [node name="GlowGrainRect" type="ColorRect" parent="." unique_id=1593394506]
 visible = false
