@@ -168,8 +168,8 @@ sources/2 = SubResource("TileSetAtlasSource_1j3pk")
 [node name="Level1" type="Node2D" unique_id=1105359909]
 position = Vector2(-4, 0)
 script = ExtResource("1_qd23e")
-min_bpm = 90.0
-max_bpm = 240.0
+min_bpm = 60.0
+max_bpm = 120.0
 
 [node name="Look" type="Node" parent="." unique_id=59391894]
 
