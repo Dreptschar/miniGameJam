@@ -145,8 +145,8 @@ func _on_beat_hit(_index: int) -> void:
 		_play_frozen_beat_shake()
 		return
 
-	var beat_duration := 60.0 / BeatManger.bpm
-	var snap_duration := beat_duration * snap_fraction
+	var beat_duration: float = 60.0 / BeatManger.bpm
+	var snap_duration: float = beat_duration * snap_fraction
 
 	_current_step += _direction
 

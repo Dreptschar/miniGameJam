@@ -147,8 +147,8 @@ func _on_beat_hit(_index: int) -> void:
 	_queued_note_color = null
 
 func _is_within_beat_input_window() -> bool:
-	var time_since_last_beat := BeatManger.get_time_since_last_beat()
-	var time_until_next_beat := BeatManger.get_time_until_next_beat()
+	var time_since_last_beat: float = BeatManger.get_time_since_last_beat()
+	var time_until_next_beat: float = BeatManger.get_time_until_next_beat()
 	return time_since_last_beat <= beat_input_window or time_until_next_beat <= beat_input_window
 
 

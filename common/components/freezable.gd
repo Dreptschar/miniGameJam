@@ -11,6 +11,7 @@ var freeze_colors: Array[NoteColor] = []
 var freeze_colors_state: Array[FrozenColorState] = [] 
 var _object_freeze_beats_left: int = 0
 var _freeze_activation_queued: bool = false
+var _reported_fully_frozen: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,11 +22,16 @@ func _ready() -> void:
 		BeatManger.beat_hit.connect(_on_beat_hit)
 
 func _build_color_states() -> void:
+	_set_reported_fully_frozen(false)
 	freeze_colors_state.clear()
 	_object_freeze_beats_left = 0
 	_freeze_activation_queued = false
 	for color in freeze_colors:
 		freeze_colors_state.append(FrozenColorState.new(color))
+
+
+func _exit_tree() -> void:
+	_set_reported_fully_frozen(false)
 
 func _on_freeze_color_requested(color: NoteColor) -> void:
 	var freeze_color_state := get_color_state(color)
@@ -215,7 +221,18 @@ func _apply_stripe_shader_parameters(material: ShaderMaterial) -> void:
 	material.set_shader_parameter("stripe_frozen", stripe_frozen_mask)
 
 func _on_color_frozen(color: NoteColor) -> void:
-	pass
+	_set_reported_fully_frozen(_is_object_fully_frozen())
 
 func _on_color_unfrozen(color: NoteColor) -> void:
-	pass
+	_set_reported_fully_frozen(_is_object_fully_frozen())
+
+
+func _set_reported_fully_frozen(is_fully_frozen: bool) -> void:
+	if _reported_fully_frozen == is_fully_frozen:
+		return
+
+	_reported_fully_frozen = is_fully_frozen
+	if Engine.is_editor_hint() or BeatManger == null:
+		return
+
+	BeatManger.notify_object_frozen_state_changed(is_fully_frozen)

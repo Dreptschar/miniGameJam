@@ -65,8 +65,8 @@ func _on_beat_hit(_index: int) -> void:
 	if _root == null:
 		return
 
-	var beat_duration := 60.0 / BeatManger.bpm
-	var snap_duration := beat_duration * _get_snap_fraction()
+	var beat_duration: float = 60.0 / BeatManger.bpm
+	var snap_duration: float = beat_duration * _get_snap_fraction()
 	var target_rotation_degrees := _root.rotation_degrees + _get_effective_rotation_offset()
 
 	if _rotation_tween != null:
