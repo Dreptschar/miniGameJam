@@ -263,13 +263,14 @@ freeze_colors = Array[ExtResource("6_djke1")]([ExtResource("7_1j3pk")])
 size = Vector2(128, 256)
 
 [node name="MovingPlatform7" parent="Platforms" unique_id=597097170 instance=ExtResource("5_6tu6n")]
+modulate = Color(0.05882353, 0.050980393, 0.105882354, 1)
+self_modulate = Color(0.05882353, 0.050980393, 0.105882354, 1)
 z_index = -2
 position = Vector2(480, 32)
 path_mode = 2
 move_offset = Vector2(0, 0)
 travel_distance = 64.0
 steps_per_leg = 1
-freeze_colors = Array[ExtResource("6_djke1")]([ExtResource("7_1j3pk")])
 size = Vector2(64, 64)
 
 [node name="Label3" type="Label" parent="." unique_id=477864818]
