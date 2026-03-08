@@ -221,7 +221,8 @@ offset_bottom = 96.0
 theme_override_colors/font_color = Color(0.82617754, 0.53930527, 0.558735, 1)
 theme_override_fonts/font = ExtResource("8_1skeo")
 theme_override_font_sizes/font_size = 32
-text = "BLOCK O WHISTLE"
+text = "FROZEN BEATS
+"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="." unique_id=186791384]
