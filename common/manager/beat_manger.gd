@@ -42,6 +42,7 @@ func _ready() -> void:
 	_music_player.volume_db = music_volume_db
 	_music_player.finished.connect(_on_music_finished)
 	add_child(_music_player)
+	_music_player.pitch_scale = 1.0
 	if music_stream != null and music_autoplay:
 		_music_player.play()
 	_last_song_time_sec = 0.0
@@ -129,6 +130,7 @@ func set_music_stream(stream: AudioStream, restart: bool = true, start_position_
 	if _music_player.stream != music_stream:
 		_music_player.stream = music_stream
 	_ensure_music_stream_loop(_music_player.stream)
+	_music_player.pitch_scale = 1.0
 
 	if music_stream == null:
 		_music_player.stop()
