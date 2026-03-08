@@ -200,6 +200,19 @@ combo_window_beats = 4
 freeze_colors = Array[ExtResource("5_f3vfr")]([ExtResource("7_7os5w")])
 size = Vector2(256, 64)
 
+[node name="Label3" type="Label" parent="MovingPlatform" unique_id=1661149640]
+offset_left = -128.0
+offset_top = -32.0
+offset_right = 128.0
+offset_bottom = 32.0
+pivot_offset = Vector2(240, 48)
+theme_override_colors/font_color = Color(0.06666667, 0.05882353, 0.12156863, 1)
+theme_override_fonts/font = ExtResource("8_1skeo")
+theme_override_font_sizes/font_size = 32
+text = "A or 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label" type="Label" parent="." unique_id=561399462]
 offset_left = 64.0
 offset_top = 48.0
@@ -222,16 +235,3 @@ theme_override_fonts/font = ExtResource("8_1skeo")
 theme_override_font_sizes/font_size = 16
 text = "ARROW KEYS TO MOVE"
 horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="." unique_id=1661149640]
-offset_left = 192.0
-offset_top = 192.0
-offset_right = 448.0
-offset_bottom = 256.0
-pivot_offset = Vector2(240, 48)
-theme_override_colors/font_color = Color(0.06666667, 0.05882353, 0.12156863, 1)
-theme_override_fonts/font = ExtResource("8_1skeo")
-theme_override_font_sizes/font_size = 32
-text = "A or 1"
-horizontal_alignment = 1
-vertical_alignment = 1
