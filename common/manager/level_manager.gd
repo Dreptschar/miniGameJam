@@ -21,13 +21,6 @@ var _is_game_over_visible: bool = false
 @onready var beat_pulse_rect: ColorRect = $BeatPulseRect
 @onready var game_over_overlay: Control = $GameOverOverlay
 
-
-func _input(event: InputEvent) -> void:
-	if OS.is_debug_build() and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_N:
-			load_next_level()
-
-
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if fade_rect:
