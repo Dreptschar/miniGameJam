@@ -37,12 +37,14 @@ func _ready() -> void:
 	_audio_player.stream = beat_sound
 	_audio_player.volume_db = beat_volume_db
 	_audio_player.bus = beat_bus
+	_audio_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(_audio_player)
 
 	_freeze_player = AudioStreamPlayer.new()
 	_freeze_player.stream = freeze_sound
 	_freeze_player.volume_db = beat_volume_db
 	_freeze_player.bus = freeze_bus
+	_freeze_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(_freeze_player)
 
 	_music_player = AudioStreamPlayer.new()
@@ -50,6 +52,7 @@ func _ready() -> void:
 	_ensure_music_stream_loop(_music_player.stream)
 	_music_player.volume_db = music_volume_db
 	_music_player.bus = music_bus
+	_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	_music_player.finished.connect(_on_music_finished)
 	add_child(_music_player)
 	_last_song_time_sec = 0.0
