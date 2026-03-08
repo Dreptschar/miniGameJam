@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="8_f6rpm"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="9_8v0ne"]
 [ext_resource type="PackedScene" uid="uid://dk81ydc64d8ye" path="res://entities/rotating_platform/rotating_platform_halfCircle.tscn" id="10_ntkvb"]
+[ext_resource type="Script" uid="uid://cklw7yxjgugi4" path="res://stages/level/level_7_bpm_controller.gd" id="11_5j3x4"]
 
 [sub_resource type="Environment" id="Environment_caoq7"]
 background_mode = 3
@@ -165,6 +166,9 @@ sources/0 = SubResource("TileSetAtlasSource_6d0mb")
 sources/2 = SubResource("TileSetAtlasSource_1j3pk")
 
 [node name="Level1" type="Node2D" unique_id=1105359909]
+script = ExtResource("11_5j3x4")
+min_bpm = 90.0
+max_bpm = 240.0
 
 [node name="Look" type="Node" parent="." unique_id=59391894]
 
