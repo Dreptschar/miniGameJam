@@ -11,15 +11,20 @@
 [ext_resource type="PackedScene" uid="uid://8jd4qyly8k8p" path="res://entities/environment/spikes.tscn" id="8_t8yft"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="11_gn0m4"]
 [ext_resource type="PackedScene" uid="uid://c0w4p0jpannt3" path="res://entities/rotating_platform/rotating_platform.tscn" id="11_ydije"]
+[ext_resource type="Texture2D" uid="uid://rosx1yx4x8vw" path="res://assets/background.jpg" id="12_gn0m4"]
 
 [sub_resource type="Environment" id="Environment_ydije"]
 background_mode = 3
 tonemap_mode = 1
-tonemap_exposure = 0.72
+tonemap_exposure = 1.09
 glow_enabled = true
-glow_intensity = 1.72
-glow_strength = 0.45
-glow_bloom = 0.4
+glow_intensity = 8.0
+glow_strength = 0.46
+glow_bloom = 0.04
+glow_hdr_threshold = 1.13
+glow_hdr_scale = 1.44
+glow_hdr_luminance_cap = 43.41
+glow_map_strength = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6d0mb"]
 texture = ExtResource("3_gn0m4")
@@ -179,9 +184,17 @@ anchor_mode = 0
 position = Vector2(624, 160)
 
 [node name="Player" parent="." unique_id=1552096183 instance=ExtResource("2_ydije")]
-position = Vector2(416, 176)
+position = Vector2(20, 58)
 
 [node name="TileMap2" type="Node" parent="." unique_id=1235865286]
+
+[node name="TextureRect" type="TextureRect" parent="TileMap2" unique_id=969874899]
+visible = false
+z_index = -2
+offset_right = 640.0
+offset_bottom = 368.0
+texture = ExtResource("12_gn0m4")
+expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap2" unique_id=1743662656]
 z_index = -2
