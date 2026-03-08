@@ -5,14 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="8_owd1w"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="9_ia5g5"]
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljye4"]
+
 [sub_resource type="Environment" id="Environment_0gnji"]
 background_mode = 3
 tonemap_mode = 1
 tonemap_exposure = 0.72
 glow_enabled = true
-glow_intensity = 1.72
+glow_intensity = 8.0
 glow_strength = 0.45
 glow_bloom = 0.4
+glow_map = SubResource("NoiseTexture2D_ljye4")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6d0mb"]
 texture = ExtResource("8_owd1w")
