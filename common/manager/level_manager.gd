@@ -103,6 +103,8 @@ func load_level(index: int) -> void:
 	await get_tree().process_frame
 	_current_index = index
 	_apply_level_bpm(level)
+	if level.get("instant_first_beat"):
+		BeatManger.fire_beat_now()
 	_cache_camera_zoom()
 	await _fade_in()
 	_is_transitioning = false
@@ -197,7 +199,12 @@ func _apply_level_bpm(level: Resource) -> void:
 	BeatManger.use_music_clock = _get_level_use_music_clock(level)
 	BeatManger.music_start_offset_sec = _get_level_music_start_offset_sec(level)
 	BeatManger.set_bpm(_get_level_bpm(level))
-	BeatManger.set_music_stream(_get_level_music_stream(level), true, _get_level_music_seek_sec(level))
+	var stream := _get_level_music_stream(level)
+	var instant: bool = level.get("instant_music_switch") as bool
+	if instant:
+		BeatManger.switch_music_now(stream)
+	else:
+		BeatManger.set_music_stream(stream, true, _get_level_music_seek_sec(level))
 
 
 func _get_level_scene(level: Resource) -> PackedScene:

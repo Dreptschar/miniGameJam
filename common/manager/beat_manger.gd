@@ -157,6 +157,26 @@ func set_music_stream(stream: AudioStream, restart: bool = true, start_position_
 	_pending_music_stream = stream
 
 
+func fire_beat_now() -> void:
+	_beat_index += 1
+	beat_hit.emit(_beat_index)
+	_play_beat_sound()
+	_beat_time = 0.0
+
+
+func switch_music_now(stream: AudioStream) -> void:
+	_pending_music_stream = null
+	music_stream = stream
+	if _music_player == null:
+		return
+	_music_player.stop()
+	_music_player.stream = music_stream
+	_ensure_music_stream_loop(_music_player.stream)
+	_last_song_time_sec = 0.0
+	if music_stream != null and music_autoplay:
+		_music_player.play()
+
+
 func _ensure_music_stream_loop(stream: AudioStream) -> void:
 	if stream == null:
 		return
