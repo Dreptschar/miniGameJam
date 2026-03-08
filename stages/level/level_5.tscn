@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b43fl7lcgrrgs" path="res://entities/goal/goal.tscn" id="1_f6lq7"]
 [ext_resource type="PackedScene" uid="uid://42j83iok010h" path="res://entities/player/player.tscn" id="2_ydije"]
+[ext_resource type="Texture2D" uid="uid://dj1s7u2l1hpb5" path="res://assets/levels/Level05.png" id="3_eguga"]
 [ext_resource type="Texture2D" uid="uid://ch77ee7thfjxo" path="res://assets/tilesets/MASTER TM - Basic.png" id="3_gn0m4"]
 [ext_resource type="Texture2D" uid="uid://c3ru5ct8jee4f" path="res://assets/tilesets/background_patterns.png" id="4_eguga"]
 [ext_resource type="Script" uid="uid://x10yqnunykx3" path="res://common/components/note_color.gd" id="6_nb6hf"]
@@ -11,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://8jd4qyly8k8p" path="res://entities/environment/spikes.tscn" id="8_t8yft"]
 [ext_resource type="PackedScene" uid="uid://d57k54qjs1u7" path="res://entities/moving_platfrom/moving_platform.tscn" id="11_gn0m4"]
 [ext_resource type="PackedScene" uid="uid://c0w4p0jpannt3" path="res://entities/rotating_platform/rotating_platform.tscn" id="11_ydije"]
-[ext_resource type="Texture2D" uid="uid://rosx1yx4x8vw" path="res://assets/background.jpg" id="12_gn0m4"]
 
 [sub_resource type="Environment" id="Environment_ydije"]
 background_mode = 3
@@ -189,11 +189,10 @@ position = Vector2(20, 58)
 [node name="TileMap2" type="Node" parent="." unique_id=1235865286]
 
 [node name="TextureRect" type="TextureRect" parent="TileMap2" unique_id=969874899]
-visible = false
-z_index = -2
+z_index = 1
 offset_right = 640.0
-offset_bottom = 368.0
-texture = ExtResource("12_gn0m4")
+offset_bottom = 360.0
+texture = ExtResource("3_eguga")
 expand_mode = 2
 
 [node name="Background" type="TileMapLayer" parent="TileMap2" unique_id=1743662656]

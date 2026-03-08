@@ -9,7 +9,8 @@ script = ExtResource("1_1q6xq")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1760654779]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 1)
-position = Vector2(8.05892, -8.0065)
+position = Vector2(8.029461, -8.00325)
+scale = Vector2(1.0036825, 1.0004063)
 texture = ExtResource("2_pkgnh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=538908483]
