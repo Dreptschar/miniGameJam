@@ -10,3 +10,5 @@ scene = ExtResource("1_j1n7d")
 bpm = 40.0
 music_stream = ExtResource("1_1bjrm")
 instant_music_switch = true
+instant_first_beat = true
+use_music_clock = true
