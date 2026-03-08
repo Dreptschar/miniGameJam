@@ -4,7 +4,8 @@ extends Node
 signal beat_hit(index: int)
 
 @export var bpm : float = 60.0
-@export var beat_sound: AudioStream = preload("res://assets/audio/van_wiese-bass-ui-298402.mp3")
+@export var beat_sound: AudioStream = preload("res://assets/audio/music/kick.wav")
+@export var freeze_sound: AudioStream = preload("res://assets/audio/music/freeze.wav")
 @export_range(-40.0, 6.0, 0.5) var beat_volume_db: float = -8.0
 @export var music_stream: AudioStream
 @export_range(-40.0, 6.0, 0.5) var music_volume_db: float = -8.0
@@ -27,6 +28,7 @@ var _beat_bus_name: StringName = &"BeatMangerBus"
 var _beat_bus_index: int = -1
 var _lowpass_effect: AudioEffectLowPassFilter
 var _last_song_time_sec: float = 0.0
+var _pending_music_stream: AudioStream = null
 
 func _ready() -> void:
 	_audio_player = AudioStreamPlayer.new()
@@ -43,8 +45,6 @@ func _ready() -> void:
 	_music_player.finished.connect(_on_music_finished)
 	add_child(_music_player)
 	_music_player.pitch_scale = 1.0
-	if music_stream != null and music_autoplay:
-		_music_player.play()
 	_last_song_time_sec = 0.0
 
 func _process(delta: float) -> void:
@@ -58,8 +58,8 @@ func _process(delta: float) -> void:
 	while _beat_time >= seconds_per_beat:
 		_beat_time -= seconds_per_beat
 		_beat_index += 1
-		_play_beat_sound()
 		beat_hit.emit(_beat_index)
+		_play_beat_sound()
 
 
 func _process_music_clock() -> void:
@@ -82,19 +82,32 @@ func _process_music_clock() -> void:
 
 	while _beat_index < current_beat_index:
 		_beat_index += 1
-		_play_beat_sound()
 		beat_hit.emit(_beat_index)
+		_play_beat_sound()
 
 	_last_song_time_sec = song_time
 
 func _play_beat_sound() -> void:
-	if _audio_player == null or beat_sound == null:
+	if _audio_player == null:
 		return
-	if _audio_player.stream != beat_sound:
-		_audio_player.stream = beat_sound
+	if _pending_music_stream != null:
+		music_stream = _pending_music_stream
+		_pending_music_stream = null
+		_music_player.stop()
+		_music_player.stream = music_stream
+		_ensure_music_stream_loop(_music_player.stream)
+		_music_player.pitch_scale = 1.0
+		_last_song_time_sec = 0.0
+	var sound := freeze_sound if _active_frozen_objects > 0 and freeze_sound != null else beat_sound
+	if sound == null:
+		return
+	_audio_player.stream = sound
 	_audio_player.volume_db = beat_volume_db
-	_audio_player.pitch_scale = frozen_pitch_scale if _active_frozen_objects > 0 else normal_pitch_scale
+	_audio_player.pitch_scale = normal_pitch_scale
 	_audio_player.play()
+	if not _music_player.playing and music_stream != null and music_autoplay:
+		_music_player.play()
+		_last_song_time_sec = 0.0
 
 
 func notify_object_frozen_state_changed(is_frozen: bool) -> void:
@@ -123,22 +136,7 @@ func set_bpm(value: float, reset_phase: bool = true) -> void:
 
 
 func set_music_stream(stream: AudioStream, restart: bool = true, start_position_sec: float = 0.0) -> void:
-	music_stream = stream
-	if _music_player == null:
-		return
-
-	if _music_player.stream != music_stream:
-		_music_player.stream = music_stream
-	_ensure_music_stream_loop(_music_player.stream)
-	_music_player.pitch_scale = 1.0
-
-	if music_stream == null:
-		_music_player.stop()
-		return
-
-	if music_autoplay and (restart or not _music_player.playing):
-		_music_player.play(max(start_position_sec, 0.0))
-		_last_song_time_sec = 0.0
+	_pending_music_stream = stream
 
 
 func _ensure_music_stream_loop(stream: AudioStream) -> void:

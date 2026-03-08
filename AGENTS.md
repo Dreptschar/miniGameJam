@@ -62,13 +62,13 @@ If your local binary is `godot4`, use the same commands with `godot4`.
   - Non-player objects are intended to move on the beat.
   - Player notes are beat-quantized with a small timing window.
   - Player death currently comes from:
-    - spike hazards,
-    - crush/squash against solids by moving platforms,
-    - any other caller using `Player.die()`.
+	- spike hazards,
+	- crush/squash against solids by moving platforms,
+	- any other caller using `Player.die()`.
   - Death shows a game-over overlay and restarts the current level from the UI.
   - Multi-color freezables use two values:
-    - `combo_window_beats`: how many beats the player has to complete the full note combination.
-    - `freeze_beats`: how long the object stays fully frozen after all required colors have been hit.
+	- `combo_window_beats`: how many beats the player has to complete the full note combination.
+	- `freeze_beats`: how long the object stays fully frozen after all required colors have been hit.
   - Beat speed is now configured per level resource instead of globally in the level list.
 
 - Moving platform details:
@@ -88,14 +88,14 @@ If your local binary is `godot4`, use the same commands with `godot4`.
 - Level manager / beat details:
   - `LevelManager` now exports `Array[Resource]` entries that are `LevelResource` assets.
   - Each level resource contains:
-    - `scene: PackedScene`
-    - `bpm: float`
+	- `scene: PackedScene`
+	- `bpm: float`
   - `BeatManger.set_bpm()` is used when levels load so each level can run at a different tempo.
   - Current level resources:
-    - `stages/jonas_test.tres`
-    - `stages/level/level_1.tres`
-    - `stages/level/level_2.tres`
-    - `stages/level/level_3.tres`
+	- `stages/jonas_test.tres`
+	- `stages/level/level_1.tres`
+	- `stages/level/level_2.tres`
+	- `stages/level/level_3.tres`
 
 - Hazard / UI details:
   - Spike hazard scene: `entities/environment/spikes.tscn`

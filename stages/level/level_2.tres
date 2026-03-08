@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://npqoy7v5h40h"]
 
+[ext_resource type="AudioStream" uid="uid://dk7ib23tnnydv" path="res://assets/audio/music/loop_70.wav" id="1_070vb"]
 [ext_resource type="Script" uid="uid://dvk4umwk05p5w" path="res://common/manager/level_resource.gd" id="1_j2l8c"]
 [ext_resource type="PackedScene" uid="uid://c4xbqd3i31itf" path="res://stages/level/level_2.tscn" id="2_v1m5z"]
 
@@ -7,3 +8,4 @@
 script = ExtResource("1_j2l8c")
 scene = ExtResource("2_v1m5z")
 bpm = 70.0
+music_stream = ExtResource("1_070vb")

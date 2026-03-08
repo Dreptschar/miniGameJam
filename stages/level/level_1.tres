@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelResource" format=3 uid="uid://c8xmpnpubcj7m"]
 
 [ext_resource type="Script" uid="uid://dvk4umwk05p5w" path="res://common/manager/level_resource.gd" id="1_t4v6p"]
-[ext_resource type="AudioStream" uid="uid://cjvqfggf3v8tm" path="res://assets/audio/looperman-l-1297038-0137756-thedrumbank-asap-rocky-x-mocha-jones-trippy-pluck.wav" id="1_tfe76"]
+[ext_resource type="AudioStream" uid="uid://ct8q7mg1oi7tg" path="res://assets/audio/music/loop_60.wav" id="1_tfe76"]
 [ext_resource type="PackedScene" uid="uid://xlgvdeq0tsma" path="res://stages/level/level_1.tscn" id="2_4y7ag"]
 
 [resource]
